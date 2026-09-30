@@ -84,28 +84,36 @@
         return el;
     }
 
+    // Entrada suave: a peca sobe um pouco enquanto sai do desfoque e aparece.
+    // Sem mascara, entao nada fica "cortado ao meio".
+    const ENTRADA = { yPercent: 35, opacity: 0, filter: 'blur(12px)' };
+    const CHEGADA = { yPercent: 0, opacity: 1, filter: 'blur(0px)', ease: 'power3.out', clearProps: 'filter' };
+
     function revelar(el, modo, extra = {}) {
         dividir(el, modo);
         const pecas = el.querySelectorAll(modo === 'letras' ? '.l' : '.p');
-        gsap.from(pecas, {
-            yPercent: 110,
-            duration: 1.1,
-            ease: 'expo.out',
-            stagger: modo === 'letras' ? 0.035 : 0.07,
-            scrollTrigger: { trigger: el, start: 'top 85%' },
+        const destaques = el.querySelectorAll('em');
+        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 85%' } });
+        tl.fromTo(pecas, ENTRADA, {
+            ...CHEGADA,
+            duration: 1.2,
+            stagger: modo === 'letras' ? 0.03 : 0.06,
             ...extra
         });
+        // A faixa de marca-texto se pinta da esquerda para a direita
+        if (destaques.length && getComputedStyle(destaques[0]).backgroundImage !== 'none') {
+            tl.fromTo(destaques, { backgroundSize: '0% 62%' }, { backgroundSize: '100% 62%', duration: 0.8, ease: 'power2.inOut' }, 0.45);
+        }
     }
 
     // ---------- Hero ----------
     const palavras = gsap.utils.toArray('.h-titulo .p');
     const letrasTamanho = gsap.utils.toArray('.h-titulo .tamanho .l');
-    // y: 0 zera o deslocamento que o CSS (anima-pre) ja tinha aplicado
-    gsap.set(palavras, { yPercent: 110, y: 0 });
+    gsap.set(palavras, ENTRADA);
     html.classList.remove('anima-pre');
 
     const tlHero = gsap.timeline({ paused: true })
-        .to(palavras, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: 0.07 })
+        .to(palavras, { ...CHEGADA, duration: 1.4, stagger: 0.08 })
         .from(letrasTamanho, {
             scaleY: 0.3,
             fontWeight: 200,
@@ -341,10 +349,9 @@
     const gigante = document.querySelector('.rodape-gigante');
     if (gigante) {
         dividir(gigante, 'letras');
-        gsap.from(gigante.querySelectorAll('.l, .duo'), {
-            yPercent: 110,
-            duration: 1.1,
-            ease: 'expo.out',
+        gsap.fromTo(gigante.querySelectorAll('.l, .duo'), ENTRADA, {
+            ...CHEGADA,
+            duration: 1.2,
             stagger: 0.05,
             scrollTrigger: { trigger: gigante, start: 'top 95%' }
         });

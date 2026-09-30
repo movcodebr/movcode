@@ -4,7 +4,7 @@
    Formato: codigo do pais + DDD + numero, sem simbolos. Ex.: 5516991234567
 ------------------------------------------------------------------------- */
 window.MOVCODE_CONFIG = Object.freeze({
-    whatsappNumber: '5516000000000',
+    whatsappNumber: '5516982157266',
     whatsappMensagem: 'Olá! Vim pelo site da MovCode e gostaria de conversar sobre um projeto.'
 });
 
