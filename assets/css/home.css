@@ -160,8 +160,9 @@ html.anima .h-cap-nome {
     font-size: clamp(72px, 21vw, 360px);
     font-stretch: 75%;
     white-space: nowrap;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+    /* Preenchido e translucido: contorno (text-stroke) em fonte variavel
+       desenha as sobreposicoes internas dos glifos. */
+    color: rgba(255, 255, 255, 0.14);
 }
 html.anima .h-cap-num { position: absolute; left: clamp(18px, 5vw, 72px); top: 112px; }
 html.anima .h-cap-linha { position: absolute; left: clamp(18px, 5vw, 72px); bottom: 9vh; }
@@ -197,7 +198,8 @@ html.anima .h-escala-progresso {
 .h-faixa-linha + .h-faixa-linha { margin-top: 0.08em; }
 .h-faixa-linha .item { display: inline-flex; align-items: center; gap: 0.28em; padding-right: 0.28em; }
 .h-faixa-linha .duo { --w: 0.42em; --cor: var(--noite); }
-.h-faixa-linha.contorno { color: transparent; -webkit-text-stroke: 2px var(--noite); }
+.h-faixa-linha.contorno { color: color-mix(in srgb, var(--noite) 28%, var(--laranja)); }
+.h-faixa-linha.contorno .duo { --cor: color-mix(in srgb, var(--noite) 28%, var(--laranja)); }
 
 /* ---------- Conversa ---------- */
 .h-conversa { background: var(--papel); color: var(--tinta); padding: var(--secao) 0; }
