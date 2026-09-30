@@ -10,7 +10,9 @@ window.MOVII_CONFIG = Object.freeze({
         'Dashboards claros',
         'Sites sob medida',
         'Automações',
-        'Sistemas internos'
+        'Sistemas internos',
+        'Controle de estoque',
+        'Landing pages'
     ]
 });
 

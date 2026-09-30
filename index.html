@@ -20,9 +20,11 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="MovCode | Sistemas, Automações e Sites sob medida">
     <meta property="og:description" content="Tire sua empresa das planilhas e do retrabalho. Diagnóstico gratuito da sua operação.">
-    <meta property="og:image" content="https://movcode.com.br/assets/images/logos/logo-inicio.png">
+    <meta property="og:image" content="https://movcode.com.br/assets/images/og/movcode-og.png">
     <meta property="og:url" content="https://movcode.com.br">
     <meta property="og:locale" content="pt_BR">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://movcode.com.br/">
 
@@ -32,9 +34,10 @@
         "@type": "ProfessionalService",
         "name": "MovCode",
         "url": "https://movcode.com.br/",
-        "logo": "https://movcode.com.br/assets/images/logos/logo-inicio.png",
-        "image": "https://movcode.com.br/assets/images/logos/logo-inicio.png",
-        "description": "Desenvolvimento de sistemas sob medida, automação de processos, integrações e sites para empresas.",
+        "logo": "https://movcode.com.br/assets/images/logos/movcode-simbolo.svg",
+        "image": "https://movcode.com.br/assets/images/og/movcode-og.png",
+        "slogan": "Tecnologia do tamanho do seu negócio.",
+        "description": "Sites, landing pages, sistemas de gestão, automações e sistemas sob medida para empresas de todos os portes.",
         "email": "contato@movcode.com.br",
         "address": {
             "@type": "PostalAddress",
@@ -63,7 +66,7 @@
     <header class="site-header">
         <div class="container header-container">
             <a href="#inicio" class="logo">
-                <span class="logo-mov">Mov</span><span class="logo-code">Code</span><span class="logo-dot">.</span>
+                <img src="assets/images/logos/movcode-simbolo.svg" alt="" class="logo-simbolo" width="22" height="28"><span class="logo-mov">Mov</span><span class="logo-code">Code</span><span class="logo-dot">.</span>
             </a>
             <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false">
                 <span></span>
@@ -74,7 +77,7 @@
                 <ul>
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#sobre">Sobre nós</a></li>
-                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#solucoes">Soluções</a></li>
                     <li><a href="#processo">Como trabalhamos</a></li>
                     <li><a href="#projetos">Projetos</a></li>
                     <li><a href="#contato" class="nav-cta" data-cta="nav">Diagnóstico grátis</a></li>
@@ -281,6 +284,54 @@
         </div>
     </section>
 
+    <section id="solucoes" class="fases">
+        <div class="container">
+            <div class="bento-header-compacto escondido">
+                <span class="bento-eyebrow">Tecnologia do tamanho do seu negócio</span>
+                <h2>Do mercadinho à indústria, tem um caminho para você.</h2>
+                <p class="fases-sub">Você não precisa começar grande. A gente começa do tamanho do seu problema e cresce junto com a sua empresa.</p>
+            </div>
+            <div class="fases-grid escondido">
+                <article class="fase-card">
+                    <span class="fase-etapa">Começar</span>
+                    <h3>Site ou landing page</h3>
+                    <p>Para ser encontrado no Google e receber contatos pelo WhatsApp.</p>
+                    <ul>
+                        <li>Site rápido e bonito no celular</li>
+                        <li>Botão de WhatsApp e formulário</li>
+                        <li>Google e Instagram apontando para você</li>
+                    </ul>
+                    <p class="fase-quem"><strong>Ideal para:</strong> Autônomos, lojas, clínicas, prestadores de serviço</p>
+                    <a href="#contato" class="fase-link" data-cta="fase_começar">Quero esse diagnóstico</a>
+                </article>
+                <article class="fase-card fase-card--destaque">
+                    <span class="fase-etapa">Organizar</span>
+                    <h3>Sistema de gestão</h3>
+                    <p>Para sair do caderno e da planilha e ter o controle do negócio na mão.</p>
+                    <ul>
+                        <li>Estoque, caixa, pedidos e fiado</li>
+                        <li>Relatórios automáticos do mês</li>
+                        <li>Funciona no computador e no celular</li>
+                    </ul>
+                    <p class="fase-quem"><strong>Ideal para:</strong> Mercadinhos, distribuidoras, lojas e pequenas indústrias</p>
+                    <a href="#contato" class="fase-link" data-cta="fase_organizar">Quero esse diagnóstico</a>
+                </article>
+                <article class="fase-card">
+                    <span class="fase-etapa">Escalar</span>
+                    <h3>Sistema sob medida</h3>
+                    <p>Para operações que cresceram e precisam de automação e integração.</p>
+                    <ul>
+                        <li>Sistemas internos e dashboards</li>
+                        <li>Integração com ERP, CRM e APIs</li>
+                        <li>Automação de rotinas repetitivas</li>
+                    </ul>
+                    <p class="fase-quem"><strong>Ideal para:</strong> Empresas com equipes, filiais ou processos complexos</p>
+                    <a href="#contato" class="fase-link" data-cta="fase_escalar">Quero esse diagnóstico</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section id="servicos" class="servicos-dark">
     <div class="container">
         
@@ -364,7 +415,7 @@
             <button type="button" class="project-modal__close" aria-label="Fechar detalhes" data-service-close>×</button>
             <div class="service-modal__visual" aria-hidden="true">
                 <div class="service-modal__icon" id="serviceModalIcon"></div>
-                <span>Movii</span>
+                <span>MovCode</span>
             </div>
             <div class="project-modal__content service-modal__content">
                 <span class="project-modal__type">Serviço</span>
@@ -630,9 +681,10 @@ A solução se destaca pela precisão técnica e pela facilidade de consulta ao 
                             <label for="leadServico">O que você precisa?</label>
                             <select id="leadServico" name="servico" required>
                                 <option value="" disabled selected>Selecione uma opção</option>
+                                <option>Site ou landing page</option>
+                                <option>Sistema de gestão (estoque, caixa, pedidos)</option>
                                 <option>Sistema sob medida</option>
                                 <option>Automação de processos</option>
-                                <option>Site ou landing page</option>
                                 <option>Integração entre sistemas</option>
                                 <option>Ainda não sei, quero um diagnóstico</option>
                             </select>
@@ -663,10 +715,10 @@ A solução se destaca pela precisão técnica e pela facilidade de consulta ao 
             <div class="footer-top">
                 <div class="footer-identidade">
                     <a href="#inicio" class="logo-menor">
-                        <img src="assets/images/logos/logo-rodape.svg" alt="" width="30" height="30">
+                        <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="30" height="30">
                         <span class="logo-texto">MovCode<span class="ponto">.</span></span>
                     </a>
-                    <p>Soluções digitais sob medida.</p>
+                    <p>Tecnologia do tamanho do seu negócio.</p>
                 </div>
 
                 <div class="footer-contato">

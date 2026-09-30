@@ -1459,6 +1459,67 @@ nav ul li a.nav-cta:hover { background: #FF7A22; color: var(--laranja-btn-txt); 
 
 
 /* =========================================
+   SOLUCOES POR PORTE (Comecar / Organizar / Escalar)
+========================================= */
+.fases { padding: 0 0 var(--sec-y); background: var(--branco); }
+.fases-sub { color: var(--txt-claro-2); font-size: var(--fs-lead); max-width: 640px; margin-top: 10px; }
+.fases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.fase-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 26px;
+    border-radius: 16px;
+    background: var(--fundo-claro);
+    border: 1px solid rgba(55,3,184,0.12);
+}
+.fase-card--destaque { background: var(--fundo-lilas); border-color: rgba(55,3,184,0.3); }
+.fase-etapa {
+    align-self: flex-start;
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--roxo-forte);
+    background: var(--branco);
+    border: 1px solid rgba(55,3,184,0.18);
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+.fase-card h3 { font-size: var(--fs-h3); font-weight: 700; color: var(--escuro); }
+.fase-card > p { color: var(--txt-claro-2); font-size: var(--fs-body); line-height: 1.6; }
+.fase-card ul { list-style: none; display: grid; gap: 8px; }
+.fase-card li { position: relative; padding-left: 24px; font-size: var(--fs-body); color: var(--escuro); }
+.fase-card li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 7px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--laranja);
+}
+.fase-card .fase-quem { font-size: var(--fs-sm); margin-top: auto; padding-top: 6px; }
+.fase-quem strong { color: var(--escuro); font-weight: 600; }
+.fase-link {
+    color: var(--roxo-forte);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: var(--fs-body);
+}
+.fase-link::after { content: ' \2192'; }
+.fase-link:hover { text-decoration: underline; }
+
+/* ---------- Simbolo no logotipo ---------- */
+.logo .logo-simbolo { height: 0.95em; width: auto; margin-right: 10px; align-self: center; }
+.logo-menor { align-items: center; gap: 10px; }
+.logo-menor img { margin-bottom: 0; }
+
+@media (max-width: 1024px) {
+    .fases-grid { grid-template-columns: 1fr; max-width: 560px; }
+}
+
+
+/* =========================================
    LANDING DE ANUNCIOS (diagnostico.html)
 ========================================= */
 .site-header .landing-header-cta { width: auto; flex-shrink: 0; padding: 10px 20px; font-size: var(--fs-sm); box-shadow: none; }
