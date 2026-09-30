@@ -87,14 +87,6 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
     padding: 120px 0 160px;
     overflow: hidden;
 }
-/* luz laranja que segue o mouse */
-.h-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(680px circle at var(--mx, 50%) var(--my, 42%), color-mix(in srgb, var(--laranja) 24%, transparent), transparent 62%);
-}
 /* textura de pontos */
 .h-hero::after {
     content: "";

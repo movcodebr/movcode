@@ -130,20 +130,6 @@
     });
 
     const hero = document.querySelector('.h-hero');
-    if (hero && ponteiroFino) {
-        let alvoX = 50, alvoY = 42, atualX = 50, atualY = 42;
-        hero.addEventListener('pointermove', (event) => {
-            const caixa = hero.getBoundingClientRect();
-            alvoX = ((event.clientX - caixa.left) / caixa.width) * 100;
-            alvoY = ((event.clientY - caixa.top) / caixa.height) * 100;
-        });
-        gsap.ticker.add(() => {
-            atualX += (alvoX - atualX) * 0.08;
-            atualY += (alvoY - atualY) * 0.08;
-            hero.style.setProperty('--mx', `${atualX}%`);
-            hero.style.setProperty('--my', `${atualY}%`);
-        });
-    }
 
     if (hero) {
         // O WhatsApp flutuante so aparece depois do hero, para nao cobrir o botao
