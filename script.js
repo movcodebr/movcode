@@ -96,6 +96,46 @@ window.MOVII_CONFIG = Object.freeze({
     setTimeout(type, deleting ? 2400 : 1000);
 })();
 
+// Rastreamento de campanha: guarda utm_* / gclid / fbclid da primeira pagina
+// da visita, para o lead chegar no WhatsApp dizendo de qual anuncio veio.
+window.MOVII_ORIGEM = (() => {
+    const chaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'gclid', 'fbclid'];
+    const params = new URLSearchParams(window.location.search);
+    const atual = {};
+
+    chaves.forEach((chave) => {
+        if (params.get(chave)) {
+            atual[chave] = params.get(chave);
+        }
+    });
+
+    try {
+        if (Object.keys(atual).length) {
+            sessionStorage.setItem('movii_origem', JSON.stringify(atual));
+            return atual;
+        }
+        return JSON.parse(sessionStorage.getItem('movii_origem') || '{}');
+    } catch {
+        return atual;
+    }
+})();
+
+function moviiTrack(evento, dados = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', evento, { ...window.MOVII_ORIGEM, ...dados });
+    }
+}
+
+function moviiLinkWhatsapp(texto) {
+    const config = window.MOVII_CONFIG;
+    const origem = window.MOVII_ORIGEM || {};
+    const ref = [origem.utm_source, origem.utm_campaign].filter(Boolean).join(' / ')
+        || (origem.gclid ? 'google ads' : origem.fbclid ? 'meta ads' : '');
+    const mensagem = ref ? `${texto}\n\n(ref: ${ref})` : texto;
+    const query = mensagem ? `?text=${encodeURIComponent(mensagem)}` : '';
+    return `https://wa.me/${config.whatsappNumber}${query}`;
+}
+
 (() => {
     // Fonte unica do numero de WhatsApp: MOVII_CONFIG.whatsappNumber.
     const config = window.MOVII_CONFIG;
@@ -106,11 +146,77 @@ window.MOVII_CONFIG = Object.freeze({
     }
 
     links.forEach((link) => {
-        const texto = link.dataset.whatsapp || config.whatsappMensagem || '';
-        const query = texto ? `?text=${encodeURIComponent(texto)}` : '';
-        link.href = `https://wa.me/${config.whatsappNumber}${query}`;
+        link.href = moviiLinkWhatsapp(link.dataset.whatsapp || config.whatsappMensagem || '');
         link.rel = 'noopener noreferrer';
         link.target = '_blank';
+    });
+})();
+
+(() => {
+    // Eventos do GA4: cliques em WhatsApp e nos botoes de chamada (data-cta).
+    // Marque whatsapp_click e generate_lead como conversao no GA4 / Google Ads.
+    document.addEventListener('click', (event) => {
+        const whatsapp = event.target.closest('[data-whatsapp]');
+        const cta = event.target.closest('[data-cta]');
+
+        if (whatsapp) {
+            moviiTrack('whatsapp_click', {
+                local: whatsapp.classList.contains('whatsapp-btn') ? 'botao_flutuante' : (whatsapp.dataset.cta || 'link'),
+                pagina: window.location.pathname
+            });
+        } else if (cta) {
+            moviiTrack('cta_click', { cta: cta.dataset.cta, pagina: window.location.pathname });
+        }
+    });
+})();
+
+(() => {
+    // Formulario de diagnostico: sem backend (site estatico), monta a mensagem
+    // e abre o WhatsApp ja preenchido.
+    const forms = document.querySelectorAll('[data-lead-form]');
+
+    forms.forEach((form) => {
+        const erro = form.querySelector('.lead-form__erro');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const dados = new FormData(form);
+            const nome = String(dados.get('nome') || '').trim();
+            const empresa = String(dados.get('empresa') || '').trim();
+            const servico = String(dados.get('servico') || '').trim();
+            const mensagem = String(dados.get('mensagem') || '').trim();
+
+            if (!nome || !servico) {
+                if (erro) erro.hidden = false;
+                form.querySelector(!nome ? '[name="nome"]' : '[name="servico"]')?.focus();
+                return;
+            }
+
+            if (erro) erro.hidden = true;
+
+            const linhas = [
+                `Olá! Sou ${nome}${empresa ? `, da ${empresa}` : ''}.`,
+                `Quero um diagnóstico gratuito sobre: ${servico}.`
+            ];
+
+            if (mensagem) {
+                linhas.push(`Hoje o que mais atrapalha é: ${mensagem}`);
+            }
+
+            moviiTrack('generate_lead', { servico, pagina: window.location.pathname });
+
+            const url = moviiLinkWhatsapp(linhas.join('\n'));
+            // Sem 'noopener' nas features: com ele window.open sempre devolve null
+            // e nao daria para detectar popup bloqueado.
+            const janela = window.open(url, '_blank');
+
+            if (janela) {
+                janela.opener = null;
+            } else {
+                window.location.href = url;
+            }
+        });
     });
 })();
 

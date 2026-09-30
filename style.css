@@ -1351,6 +1351,156 @@ h2.section-title { color: var(--escuro); font-size: 36px; margin-bottom: 50px; }
 
 
 
+/* ---------- Formulario de diagnostico ---------- */
+.lead-form {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: left;
+}
+.lead-form__title { font-size: var(--fs-h3); font-weight: 700; color: var(--txt-escuro-1); margin-bottom: 2px; }
+.lead-form__field { display: flex; flex-direction: column; gap: 6px; }
+.lead-form__field label { font-size: var(--fs-sm); font-weight: 600; color: #DCD6F2; }
+.lead-form__field label span { font-weight: 400; color: var(--txt-escuro-3); }
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+    width: 100%;
+    font-size: var(--fs-body);
+    color: var(--txt-escuro-1);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 10px;
+    padding: 12px 14px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.lead-form textarea { resize: vertical; min-height: 84px; }
+.lead-form select option { color: var(--escuro); background: var(--branco); }
+.lead-form input::placeholder,
+.lead-form textarea::placeholder { color: var(--txt-escuro-3); }
+.lead-form input:focus,
+.lead-form select:focus,
+.lead-form textarea:focus {
+    outline: none;
+    border-color: var(--roxo-suave);
+    background: rgba(255,255,255,0.09);
+}
+.lead-form__erro { font-size: var(--fs-sm); color: #FFB38A; font-weight: 500; }
+.lead-form__submit { width: 100%; padding: 16px 20px; font-size: var(--fs-body); }
+.lead-form__nota { font-size: var(--fs-micro); color: var(--txt-escuro-3); line-height: 1.5; }
+.lead-form__nota a { color: var(--txt-escuro-2); }
+.cta-left .benefits-list { margin-bottom: 0; }
+
+
+/* =========================================
+   FAQ
+========================================= */
+.faq { padding: var(--sec-y) 0 0; background: var(--branco); }
+.faq-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
+.faq-intro h2 { font-size: 32px; letter-spacing: -1px; line-height: 1.2; color: var(--escuro); margin-bottom: 14px; }
+.faq-intro p { color: var(--txt-claro-2); font-size: var(--fs-body); }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+    border: 1px solid rgba(55,3,184,0.12);
+    border-radius: 14px;
+    background: var(--fundo-claro);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.faq-item[open] { background: var(--fundo-lilas); border-color: rgba(55,3,184,0.25); }
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    font-weight: 600;
+    font-size: var(--fs-body);
+    color: var(--escuro);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+    content: '+';
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--roxo-forte);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:focus-visible { outline: 2px solid var(--roxo-forte); outline-offset: 2px; border-radius: 14px; }
+.faq-item p { padding: 0 22px 20px; color: var(--txt-claro-2); font-size: var(--fs-body); line-height: 1.7; }
+
+/* ---------- Botao de destaque no menu ---------- */
+nav ul li a.nav-cta {
+    background: var(--laranja-btn);
+    color: var(--laranja-btn-txt);
+    padding: 8px 18px;
+    margin-left: 6px;
+}
+nav ul li a.nav-cta::after { display: none; }
+nav ul li a.nav-cta:hover { background: #FF7A22; color: var(--laranja-btn-txt); }
+
+@media (max-width: 1024px) {
+    .faq-layout { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 768px) {
+    nav ul li a.nav-cta { margin: 6px 0 0; justify-content: center; }
+    .faq-intro h2 { font-size: 26px; }
+    .lead-form { padding: 22px 18px; }
+    .cta-left .benefits-list { align-items: flex-start; max-width: 360px; margin: 0 auto; text-align: left; }
+}
+
+
+/* =========================================
+   LANDING DE ANUNCIOS (diagnostico.html)
+========================================= */
+.site-header .landing-header-cta { width: auto; flex-shrink: 0; padding: 10px 20px; font-size: var(--fs-sm); box-shadow: none; }
+.landing-hero .hero-btns { margin-top: 28px; }
+.landing-recebe { padding: 0 0 var(--sec-y); background: var(--branco); }
+.landing-passos {
+    list-style: none;
+    counter-reset: passo;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.landing-passos li {
+    counter-increment: passo;
+    background: var(--fundo-lilas);
+    border: 1px solid rgba(55,3,184,0.12);
+    border-radius: 16px;
+    padding: 26px 24px;
+}
+.landing-passos li::before {
+    content: counter(passo);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--roxo-forte);
+    color: var(--branco);
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+.landing-passos strong { display: block; font-size: var(--fs-h3); color: var(--escuro); margin-bottom: 8px; }
+.landing-passos p { color: var(--txt-claro-2); font-size: var(--fs-body); }
+.faq--landing { padding-bottom: var(--sec-y); }
+.landing #contato { padding-top: 0; }
+
+@media (max-width: 768px) {
+    .landing-passos { grid-template-columns: 1fr; }
+    .site-header .landing-header-cta { width: auto; padding: 9px 14px; }
+}
+
+
 /* =========================================
    MIDDLE WRAPPER
 ========================================= */
