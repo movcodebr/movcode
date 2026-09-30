@@ -270,6 +270,24 @@
         });
     });
 
+    // ---------- Texto curvo dos cards: desliza devagar pela curva ----------
+    // Mede depois das fontes carregarem: o comprimento do texto depende delas
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+        document.querySelectorAll('.h-card-curva textPath').forEach((caminho, i) => {
+            const texto = caminho.parentNode;
+            const repeticoes = Math.max(1, Math.round(caminho.textContent.length / (caminho.dataset.repete || caminho.textContent).length));
+            const passo = texto.getComputedTextLength() / repeticoes; // comprimento de uma repeticao
+            if (!passo) return;
+            const inicio = -passo * (0.2 + (i % 3) * 0.25);
+            gsap.fromTo(caminho, { attr: { startOffset: inicio } }, {
+                attr: { startOffset: inicio - passo },
+                duration: passo / 28,
+                ease: 'none',
+                repeat: -1
+            });
+        });
+    });
+
     // ---------- Titulos grandes ----------
     gsap.utils.toArray('.h-grande').forEach((titulo) => revelar(titulo, 'palavras'));
 
