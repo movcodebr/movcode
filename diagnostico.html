@@ -11,6 +11,14 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Chegando de outra pagina do site: comeca coberto de laranja (transicao)
+        try {
+            if (sessionStorage.getItem('movcode_transicao') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.classList.add('chegando');
+            }
+        } catch (e) {}
+    </script>
     <title>Diagnóstico gratuito | MovCode</title>
     <meta name="description" content="Sua equipe perde horas com planilha e processo manual? Agende um diagnóstico gratuito de 30 minutos e descubra o que dá para automatizar.">
     <meta name="robots" content="index, follow">
@@ -38,8 +46,8 @@
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <header class="topo">
         <div class="wrap">
-            <a href="index.html" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+            <a href="/" class="marca" aria-label="MovCode, página inicial">
+                <span class="duo duo-vivo duo-pula" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
             <a href="#contato" class="btn btn-acao btn-pequeno" data-cta="topo">Agendar diagnóstico</a>
@@ -197,8 +205,8 @@
         <div class="wrap">
             <div class="rodape-topo">
                 <div>
-                    <a href="index.html" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+                    <a href="/" class="marca" aria-label="MovCode, página inicial">
+                <span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
                     <p class="rodape-frase">Tecnologia do tamanho do seu negócio.</p>
@@ -206,9 +214,9 @@
                 <div class="rodape-links">
                     <div>
                         <strong>Navegar</strong>
-                        <a href="index.html#escala">Soluções</a>
-                        <a href="index.html#como-funciona">Como funciona</a>
-                        <a href="index.html#projetos">Projetos</a>
+                        <a href="/#escala">Soluções</a>
+                        <a href="/#como-funciona">Como funciona</a>
+                        <a href="/#projetos">Projetos</a>
                         <a href="diagnostico.html">Diagnóstico gratuito</a>
                     </div>
                     <div>
@@ -220,7 +228,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rodape-gigante" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
+            <div class="rodape-gigante" aria-hidden="true"><span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
             <div class="rodape-base">
                 <span>&copy; <span data-ano>2026</span> MovCode · Ribeirão Preto, SP</span>
                 <span><a href="politica.html">Privacidade</a> · <a href="termo.html">Termos de uso</a></span>

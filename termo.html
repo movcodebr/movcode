@@ -11,6 +11,14 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Chegando de outra pagina do site: comeca coberto de laranja (transicao)
+        try {
+            if (sessionStorage.getItem('movcode_transicao') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.classList.add('chegando');
+            }
+        } catch (e) {}
+    </script>
     <title>Termos de Uso | MovCode</title>
     <meta name="description" content="Condições de contratação, prazos, pagamento, propriedade intelectual e cancelamento dos serviços da MovCode.">
     <meta name="robots" content="index, follow">
@@ -38,19 +46,19 @@
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <header class="topo">
         <div class="wrap">
-            <a href="index.html" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+            <a href="/" class="marca" aria-label="MovCode, página inicial">
+                <span class="duo duo-vivo duo-pula" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
             <button class="menu-botao" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false">
                 <svg class="abrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="fechar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
             </button>
             <nav id="menu" class="menu" aria-label="Navegação principal">
-                <a href="index.html#escala">Soluções</a>
-                <a href="index.html#como-funciona">Como funciona</a>
-                <a href="index.html#projetos">Projetos</a>
-                <a href="index.html#duvidas">Dúvidas</a>
-                <a href="index.html#contato" class="btn btn-acao btn-pequeno" data-cta="menu">Diagnóstico grátis</a>
+                <a href="/#escala">Soluções</a>
+                <a href="/#como-funciona">Como funciona</a>
+                <a href="/#projetos">Projetos</a>
+                <a href="/#duvidas">Dúvidas</a>
+                <a href="/#contato" class="btn btn-acao btn-pequeno" data-cta="menu">Diagnóstico grátis</a>
             </nav>
         </div>
     </header>
@@ -159,8 +167,8 @@
         <div class="wrap">
             <div class="rodape-topo">
                 <div>
-                    <a href="index.html" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+                    <a href="/" class="marca" aria-label="MovCode, página inicial">
+                <span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
                     <p class="rodape-frase">Tecnologia do tamanho do seu negócio.</p>
@@ -168,9 +176,9 @@
                 <div class="rodape-links">
                     <div>
                         <strong>Navegar</strong>
-                        <a href="index.html#escala">Soluções</a>
-                        <a href="index.html#como-funciona">Como funciona</a>
-                        <a href="index.html#projetos">Projetos</a>
+                        <a href="/#escala">Soluções</a>
+                        <a href="/#como-funciona">Como funciona</a>
+                        <a href="/#projetos">Projetos</a>
                         <a href="diagnostico.html">Diagnóstico gratuito</a>
                     </div>
                     <div>
@@ -182,7 +190,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rodape-gigante" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
+            <div class="rodape-gigante" aria-hidden="true"><span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
             <div class="rodape-base">
                 <span>&copy; <span data-ano>2026</span> MovCode · Ribeirão Preto, SP</span>
                 <span><a href="politica.html">Privacidade</a> · <a href="termo.html">Termos de uso</a></span>
