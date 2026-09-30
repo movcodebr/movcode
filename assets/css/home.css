@@ -87,17 +87,6 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
     padding: 120px 0 160px;
     overflow: hidden;
 }
-/* textura de pontos */
-.h-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-    background-size: 26px 26px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%);
-    mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%);
-}
 .h-titulo { font-size: clamp(46px, 11vw, 190px); text-align: center; line-height: 0.88; padding-inline: 12px; }
 .h-titulo .linha { display: block; }
 .h-titulo .tamanho { color: var(--laranja); }
