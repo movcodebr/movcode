@@ -181,36 +181,40 @@
         const duo = palco.querySelector('.h-escala-duo');
         const capitulos = gsap.utils.toArray('.h-escala .h-cap');
         const nomes = capitulos.map((cap) => cap.querySelector('.h-cap-nome'));
+        const palavras = capitulos.map((cap) => cap.querySelector('.h-cap-nome-i'));
+        const detalhes = capitulos.map((cap) => cap.querySelectorAll('.h-cap-num, .h-cap-linha, .h-cap-link'));
         gsap.set(duo, { xPercent: -50, yPercent: -50, scale: 0.45 });
         gsap.set(nomes, { xPercent: -50, yPercent: -50 });
-        gsap.set(capitulos, { autoAlpha: 0 });
-        gsap.set(capitulos[0], { autoAlpha: 1 });
+        // As palavras seguintes comecam escondidas abaixo da janela; os textos pequenos, apagados
+        gsap.set(palavras.slice(1), { yPercent: 150 });
+        detalhes.slice(1).forEach((grupo) => gsap.set(grupo, { autoAlpha: 0 }));
 
         const tl = gsap.timeline({
             defaults: { ease: 'none' },
-            scrollTrigger: { trigger: palco, start: 'top top', end: '+=340%', pin: true, scrub: 0.6, anticipatePin: 1 }
+            scrollTrigger: { trigger: palco, start: 'top top', end: '+=340%', pin: true, scrub: 0.8, anticipatePin: 1 }
         });
-        // Troca de palavra como cortina, sem transparencia: a que sai e recolhida
-        // de baixo para cima, sempre solida; so depois a proxima e revelada.
-        // Assim nunca aparece texto, simbolo e texto sobrepostos.
-        const VISIVEL = 'inset(-25% -5% -25% -5%)'; // folga para acentos e descendentes
-        const RECOLHIDA = 'inset(-25% -5% 125% -5%)';
-        const ESCONDIDA_EMBAIXO = 'inset(125% -5% -25% -5%)';
-        gsap.set(nomes, { clipPath: VISIVEL });
+
+        // Troca de palavra: a que sai desliza para cima e some pela janela, depois a
+        // proxima sobe de baixo. Sempre solidas e nunca juntas, entao o simbolo
+        // nao se mistura com o texto. Os textos pequenos trocam com fade suave.
+        const sair = (i, em) => tl
+            .to(palavras[i], { yPercent: -150, duration: 0.24, ease: 'power2.in' }, em)
+            .to(detalhes[i], { autoAlpha: 0, duration: 0.18, ease: 'power1.in' }, em);
+        const entrar = (i, em) => tl
+            .fromTo(palavras[i], { yPercent: 150 }, { yPercent: 0, duration: 0.26, ease: 'power3.out', immediateRender: false }, em)
+            .fromTo(detalhes[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.22, ease: 'power1.out', immediateRender: false }, em + 0.06);
 
         const tamanhos = [1, 1.9, 3.1];
         capitulos.forEach((cap, i) => {
             tl.to(duo, { scale: tamanhos[i], duration: 1 }, i)
-                .fromTo(nomes[i], { scale: 0.86 }, { scale: 1.06, duration: 1 }, i);
+                .fromTo(nomes[i], { scale: 0.9 }, { scale: 1.04, duration: 1 }, i);
             if (i > 0) {
-                tl.to(nomes[i - 1], { clipPath: RECOLHIDA, duration: 0.12, ease: 'power2.in' }, i - 0.14)
-                    .set(capitulos[i - 1], { autoAlpha: 0 }, i - 0.02)
-                    .set(cap, { autoAlpha: 1 }, i - 0.02)
-                    .fromTo(nomes[i], { clipPath: ESCONDIDA_EMBAIXO }, { clipPath: VISIVEL, duration: 0.12, ease: 'power2.out', immediateRender: false }, i);
+                sair(i - 1, i - 0.26);
+                entrar(i, i + 0.02);
             }
         });
-        tl.to(nomes.at(-1), { clipPath: RECOLHIDA, duration: 0.12, ease: 'power2.in' }, 2.9)
-            .set(capitulos.at(-1), { autoAlpha: 0 }, 3.02)
+        sair(capitulos.length - 1, 2.86);
+        tl
             .to('.h-escala-fundo', { clipPath: 'circle(150% at 50% 50%)', duration: 0.9, ease: 'power2.in' }, 3)
             .to('.h-escala-progresso i', { scaleX: 1, duration: 3.9 }, 0);
     }
