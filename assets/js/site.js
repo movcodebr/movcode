@@ -82,9 +82,14 @@ document.querySelectorAll('[data-servico]').forEach((link) => {
     const botao = document.querySelector('.menu-botao');
     const menu = document.getElementById('menu');
 
-    const marcarRolagem = () => topo?.classList.toggle('rolou', window.scrollY > 8);
-    marcarRolagem();
-    window.addEventListener('scroll', marcarRolagem, { passive: true });
+    // A capsula some ao rolar para baixo e volta ao rolar para cima
+    let ultimoY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const descendo = y > ultimoY && y > 240;
+        topo?.classList.toggle('escondido', descendo && !document.body.classList.contains('menu-aberto'));
+        ultimoY = y;
+    }, { passive: true });
 
     if (!botao || !menu) {
         return;

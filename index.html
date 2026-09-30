@@ -11,15 +11,15 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovCode | Sites, sistemas e automações do tamanho do seu negócio</title>
+    <title>MovCode | Tecnologia do tamanho do seu negócio</title>
     <meta name="description" content="Do mercadinho à indústria: a MovCode cria sites, sistemas de gestão e automações sob medida. Comece com um diagnóstico gratuito de 30 minutos.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#F7F6FB">
+    <meta name="theme-color" content="#111214">
     <link rel="canonical" href="https://movcode.com.br/">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="MovCode">
-    <meta property="og:title" content="MovCode | Sites, sistemas e automações do tamanho do seu negócio">
+    <meta property="og:title" content="MovCode | Tecnologia do tamanho do seu negócio">
     <meta property="og:description" content="Do mercadinho à indústria: a MovCode cria sites, sistemas de gestão e automações sob medida. Comece com um diagnóstico gratuito de 30 minutos.">
     <meta property="og:url" content="https://movcode.com.br/">
     <meta property="og:image" content="https://movcode.com.br/assets/images/og/movcode-og.png">
@@ -31,8 +31,21 @@
     <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <script>
+        // Antes de pintar: prepara a intro (1x por sessao) e esconde o titulo
+        // para o script revelar. Sem movimento reduzido, nada disso acontece.
+        (function () {
+            try {
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var html = document.documentElement;
+                html.classList.add('anima-pre');
+                if (!sessionStorage.getItem('movcode_intro')) html.classList.add('intro-ativa');
+            } catch (e) {}
+        })();
+    </script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -114,7 +127,7 @@
 }
     </script>
 </head>
-<body>
+<body class="home">
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <header class="topo">
         <div class="wrap">
@@ -126,7 +139,7 @@
                 <svg class="abrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="fechar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
             </button>
             <nav id="menu" class="menu" aria-label="Navegação principal">
-                <a href="#solucoes">Soluções</a>
+                <a href="#escala">Soluções</a>
                 <a href="#como-funciona">Como funciona</a>
                 <a href="#projetos">Projetos</a>
                 <a href="#duvidas">Dúvidas</a>
@@ -135,262 +148,165 @@
         </div>
     </header>
 
+    <div class="intro" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-anel" aria-hidden="true"><span></span></div>
+
     <main id="conteudo">
-        <section id="inicio" class="hero">
-            <div class="wrap">
-                <div class="hero-texto">
-                    <span class="selo"><b>Grátis</b> Diagnóstico de 30 minutos</span>
-                    <h1>Tecnologia do <span class="tamanho">tamanho</span> do seu negócio.</h1>
-                    <p class="hero-sub">Do mercadinho que anota o fiado no caderno à indústria que perde horas montando relatório: a MovCode cria o site, o sistema ou a automação certa para o seu momento.</p>
-                    <div class="hero-acoes">
-                        <a href="#contato" class="btn btn-acao" data-cta="hero">Quero um diagnóstico gratuito <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-                        <a href="#solucoes" class="btn btn-linha" data-cta="hero_solucoes">Ver soluções</a>
-                    </div>
-                    <ul class="garantias">
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Preço fechado</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Seus dados são seus</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/></svg> Suporte depois da entrega</li>
-                    </ul>
-                </div>
-
-                <div class="hero-arte" aria-hidden="true">
-                    <div class="tela tela-painel">
-                        <div class="tela-barra"><i></i><i></i><i></i><span>painel do mês</span></div>
-                        <div class="painel-corpo">
-                            <div class="kpi"><small>Pedidos</small><strong>1.284</strong></div>
-                            <div class="kpi"><small>Ticket médio</small><strong>R$ 86</strong></div>
-                            <div class="kpi"><small>Atrasos</small><strong>0</strong></div>
-                            <div class="barras"><span style="height:38%"></span><span style="height:52%"></span><span style="height:45%"></span><span style="height:64%"></span><span style="height:92%"></span><span style="height:70%"></span><span style="height:58%"></span></div>
-                        </div>
-                    </div>
-                    <div class="tela tela-estoque">
-                        <div class="tela-barra"><i></i><i></i><i></i><span>estoque</span></div>
-                        <table class="estoque">
-                            <tr><th>Produto</th><th style="text-align:right">Qtd.</th></tr>
-                            <tr><td>Arroz 5 kg</td><td>42</td></tr>
-                            <tr><td>Óleo 900 ml <span class="repor">repor</span></td><td>3</td></tr>
-                            <tr><td>Café 500 g</td><td>18</td></tr>
-                            <tr><td>Feijão 1 kg</td><td>27</td></tr>
-                        </table>
-                    </div>
-                    <div class="tela tela-celular">
-                        <div class="celular-tela">
-                            <span class="nome">Studio Bela</span>
-                            <span class="linha-cinza"></span>
-                            <span class="linha-cinza curta"></span>
-                            <span class="foto"></span>
-                            <span class="whats"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.22 8.24c0 4.54-3.69 8.23-8.24 8.23z"/></svg> Agendar</span>
-                        </div>
-                    </div>
-                    <span class="etiqueta e1">Começar</span>
-                    <span class="etiqueta e2">Organizar</span>
-                    <span class="etiqueta e3">Escalar</span>
+        <section id="inicio" class="h-hero">
+            <h1 class="h-titulo gigante" aria-label="Tecnologia do tamanho do seu negócio.">
+                <span class="linha" aria-hidden="true"><span class="m"><span class="p">Tecnologia</span></span></span>
+                <span class="linha" aria-hidden="true"><span class="m"><span class="p">do</span></span> <span class="m"><span class="p tamanho"><span class="l" style="--s:.68">t</span><span class="l" style="--s:.76">a</span><span class="l" style="--s:.84">m</span><span class="l" style="--s:.92">a</span><span class="l" style="--s:1">n</span><span class="l" style="--s:1.08">h</span><span class="l" style="--s:1.16">o</span></span></span></span>
+                <span class="linha" aria-hidden="true"><span class="m"><span class="p">do</span></span> <span class="m"><span class="p">seu</span></span> <span class="m"><span class="p">negócio.</span></span></span>
+            </h1>
+            <div class="h-hero-base">
+                <div class="wrap">
+                    <p>Sites, sistemas e automações. Do mercadinho à indústria.</p>
+                    <a href="#escala" class="h-rolar"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>Role para crescer</a>
+                    <a href="#contato" class="btn btn-acao" data-cta="hero" data-magnetico data-cursor="bora">Diagnóstico grátis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
             </div>
         </section>
 
-        <section class="familiar" aria-labelledby="familiar-titulo">
+        <section id="escala" class="h-escala" aria-labelledby="escala-titulo">
+            <h2 id="escala-titulo" class="sr">Soluções para cada tamanho de negócio</h2>
+            <div class="h-escala-palco">
+                <div class="h-escala-duo" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></div>
+                    <div class="h-cap c1">
+                        <span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
+                        <span class="h-cap-num">01 / 03</span>
+                        <h3 class="h-cap-nome gigante">Começar</h3>
+                        <p class="h-cap-linha">Um site que coloca você no mapa.</p>
+                        <a href="#contato" class="h-cap-link" data-cta="escala_começar" data-servico="Site ou landing page">Quero esse →</a>
+                    </div>
+                    <div class="h-cap c2">
+                        <span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
+                        <span class="h-cap-num">02 / 03</span>
+                        <h3 class="h-cap-nome gigante">Organizar</h3>
+                        <p class="h-cap-linha">Um sistema que arruma a casa.</p>
+                        <a href="#contato" class="h-cap-link" data-cta="escala_organizar" data-servico="Sistema de gestão">Quero esse →</a>
+                    </div>
+                    <div class="h-cap c3">
+                        <span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
+                        <span class="h-cap-num">03 / 03</span>
+                        <h3 class="h-cap-nome gigante">Escalar</h3>
+                        <p class="h-cap-linha">Tecnologia que cresce junto.</p>
+                        <a href="#contato" class="h-cap-link" data-cta="escala_escalar" data-servico="Sistema sob medida">Quero esse →</a>
+                    </div>
+                <div class="h-escala-progresso" aria-hidden="true"><i></i></div>
+                <div class="h-escala-fundo" aria-hidden="true"><p class="h-escala-final gigante">Do tamanho que você precisar.</p></div>
+            </div>
+        </section>
+
+        <section id="solucoes" class="h-faixa" aria-label="O que fazemos: sites, sistemas, automações, integrações e painéis">
+            <div class="h-faixa-linha" aria-hidden="true"><span class="item">Sites<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sistemas<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Automações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Integrações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Painéis<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sites<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sistemas<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Automações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Integrações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Painéis<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span></div>
+            <div class="h-faixa-linha contorno" aria-hidden="true"><span class="item">Sites<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sistemas<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Automações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Integrações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Painéis<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sites<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Sistemas<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Automações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Integrações<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span><span class="item">Painéis<span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span></span></div>
+        </section>
+
+        <section class="h-conversa" aria-labelledby="conversa-titulo">
             <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">Soa familiar?</span>
-                    <h2 id="familiar-titulo">Se a sua empresa roda no improviso, ela avisa.</h2>
-                    <p>Toda empresa tem essas mensagens. A diferença é quanto tempo elas custam por semana. A gente transforma esse improviso em processo.</p>
-                </div>
-                <div class="conversa">
-                    <p class="msg">Quem vendeu fiado pro seu João ontem? Não tá no caderno.<small>09:12</small></p>
-                    <p class="msg">O sistema diz 12 no estoque, mas na prateleira tem 3.<small>10:47</small></p>
-                    <p class="msg">Cadê a planilha atualizada? Tem três versões aqui.<small>14:05</small></p>
-                    <p class="msg">O cliente disse que achou a gente no Google, mas ligou pro concorrente.<small>16:30</small></p>
-                    <p class="msg resposta">Bora resolver isso de vez?<small>MovCode</small></p>
+                <h2 id="conversa-titulo" class="h-grande gigante">Sua empresa <em>já te avisa.</em></h2>
+                <div class="chat">
+                    <p class="bolha">Quem vendeu fiado pro seu João? Não tá no caderno.<small>09:12</small></p>
+                    <p class="bolha">O sistema diz 12, mas na prateleira tem 3.<small>10:47</small></p>
+                    <p class="bolha">Cadê a planilha certa? Tem três versões aqui.<small>14:05</small></p>
+                    <p class="bolha nossa">Bora resolver isso de vez?<small>MovCode</small></p>
                 </div>
             </div>
         </section>
 
-        <section id="solucoes" class="solucoes">
-            <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">Soluções</span>
-                    <h2>Do mercadinho à indústria, tem um caminho para você.</h2>
-                    <p>Você não precisa começar grande. A gente começa do tamanho do seu problema e cresce junto com a sua empresa.</p>
-                </div>
-                <div class="portes">
-                <article class="porte">
-                    <div class="porte-topo">
-                        <span class="porte-nome">Começar</span>
-                        <span class="porte-forma" aria-hidden="true"><span style="height:14px"></span></span>
+        <section class="h-servicos escuro" aria-labelledby="servicos-titulo">
+            <div class="h-servicos-pin">
+                <div class="h-servicos-trilho">
+                    <div class="h-servicos-intro">
+                        <span class="rotulo">O que a gente constrói</span>
+                        <h2 id="servicos-titulo" class="h-grande gigante">Tudo que o seu negócio <em>precisa.</em></h2>
                     </div>
-                    <h3>Site e landing page</h3>
-                    <p>Para ser encontrado no Google e transformar visita em conversa no WhatsApp.</p>
-                    <ul>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Site rápido e bonito no celular</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Botão de WhatsApp e formulário</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Perfil do Google configurado</li>
-                    </ul>
-                    <p class="para-quem"><b>Ideal para</b> autônomos, clínicas, salões, oficinas e prestadores de serviço.</p>
-                    <a href="#contato" class="btn btn-linha" data-cta="porte_começar" data-servico="Site ou landing page">Quero esse diagnóstico</a>
-                </article>
-                <article class="porte destaque">
-                    <div class="porte-topo">
-                        <span class="porte-nome">Organizar</span>
-                        <span class="porte-forma" aria-hidden="true"><span style="height:14px"></span><span style="height:22px"></span></span>
-                    </div>
-                    <h3>Sistema de gestão</h3>
-                    <p>Para sair do caderno e da planilha e ter o negócio na palma da mão.</p>
-                    <ul>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Estoque, caixa, pedidos e fiado</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Relatório do mês sem montar à mão</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Funciona no computador e no celular</li>
-                    </ul>
-                    <p class="para-quem"><b>Ideal para</b> mercadinhos, distribuidoras, lojas e pequenas indústrias.</p>
-                    <a href="#contato" class="btn btn-acao" data-cta="porte_organizar" data-servico="Sistema de gestão">Quero esse diagnóstico</a>
-                </article>
-                <article class="porte">
-                    <div class="porte-topo">
-                        <span class="porte-nome">Escalar</span>
-                        <span class="porte-forma" aria-hidden="true"><span style="height:14px"></span><span style="height:22px"></span><span style="height:30px"></span></span>
-                    </div>
-                    <h3>Sistema sob medida</h3>
-                    <p>Para operações que cresceram e não cabem mais em ferramenta pronta.</p>
-                    <ul>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sistemas internos e dashboards</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Integração com ERP, CRM e APIs</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Automação de rotinas repetitivas</li>
-                    </ul>
-                    <p class="para-quem"><b>Ideal para</b> empresas com equipes, filiais ou processos complexos.</p>
-                    <a href="#contato" class="btn btn-linha" data-cta="porte_escalar" data-servico="Sistema sob medida">Quero esse diagnóstico</a>
-                </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="fazemos" aria-labelledby="fazemos-titulo">
-            <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">O que fazemos</span>
-                    <h2 id="fazemos-titulo">Tudo o que o seu negócio precisa no digital, em um só lugar.</h2>
-                </div>
-                <ul class="servicos">
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">01</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span></div>
                         <h3>Sites e landing pages</h3>
-                        <p>Páginas rápidas, feitas para aparecer no Google e gerar contato.</p>
-                    </li>
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>
+                        <p>Rápidos, bonitos no celular e feitos para gerar contato.</p>
+                    </article>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">02</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span></div>
                         <h3>Sistemas de gestão</h3>
-                        <p>Estoque, vendas, caixa, fiado e clientes em um lugar só.</p>
-                    </li>
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+                        <p>Estoque, caixa, pedidos e fiado num lugar só.</p>
+                    </article>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">03</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span></div>
                         <h3>Automações</h3>
-                        <p>Tarefas repetitivas rodando sozinhas, sem copiar e colar.</p>
-                    </li>
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
+                        <p>O trabalho repetitivo rodando sozinho.</p>
+                    </article>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">04</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span></div>
                         <h3>Integrações</h3>
-                        <p>ERP, CRM, planilhas e APIs conversando entre si.</p>
-                    </li>
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
-                        <h3>Painéis e relatórios</h3>
-                        <p>Os números do negócio atualizados, sem montar relatório.</p>
-                    </li>
-                    <li>
-                        <span class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
-                        <h3>Consultoria de processos</h3>
-                        <p>Mapeamos o gargalo antes de escrever qualquer código.</p>
-                    </li>
-                </ul>
+                        <p>ERP, CRM, planilhas e APIs conversando.</p>
+                    </article>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">05</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span></div>
+                        <h3>Painéis</h3>
+                        <p>Os números do negócio sempre atualizados.</p>
+                    </article>
+                    <article class="h-card">
+                        <div class="h-card-topo"><span class="h-card-num">06</span><span class="h-card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span></div>
+                        <h3>Consultoria</h3>
+                        <p>O gargalo mapeado antes de qualquer código.</p>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <section id="como-funciona" class="processo">
+        <section id="como-funciona" class="h-processo" aria-labelledby="processo-titulo">
             <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">Como funciona</span>
-                    <h2>Da primeira conversa ao sistema rodando.</h2>
-                    <p>Um processo simples, com você por dentro de cada etapa.</p>
-                </div>
-                <ol class="passos">
-                    <li class="passo">
-                        <span class="gratis">grátis</span>
-                        <h3>Diagnóstico</h3>
-                        <p>Uma conversa de 30 minutos para entender a rotina e achar onde está o gargalo.</p>
+                <h2 id="processo-titulo" class="h-grande gigante">Do papo ao <em>sistema no ar.</em></h2>
+                <div class="h-passos-caixa">
+                    <span class="h-passos-linha" aria-hidden="true"></span>
+                    <ol class="h-passos">
+                    <li class="h-passo">
+                        <span class="h-passo-num">01</span>
+                        <h3>Conversa <small>grátis</small></h3>
+                        <p>Meia hora para entender a sua rotina.</p>
                     </li>
-                    <li class="passo">
-                        
+                    <li class="h-passo">
+                        <span class="h-passo-num">02</span>
                         <h3>Proposta</h3>
-                        <p>Você recebe escopo, prazo e valor fechados, por escrito. Sem letra miúda.</p>
+                        <p>Escopo, prazo e preço fechados.</p>
                     </li>
-                    <li class="passo">
-                        
+                    <li class="h-passo">
+                        <span class="h-passo-num">03</span>
                         <h3>Construção</h3>
-                        <p>Entregas em etapas, com você testando e opinando desde a primeira semana.</p>
+                        <p>Você testa e opina a cada etapa.</p>
                     </li>
-                    <li class="passo">
-                        
-                        <h3>Entrega e suporte</h3>
-                        <p>Colocamos no ar, treinamos a equipe e seguimos junto na manutenção.</p>
+                    <li class="h-passo">
+                        <span class="h-passo-num">04</span>
+                        <h3>No ar</h3>
+                        <p>Treinamos a equipe e seguimos junto.</p>
                     </li>
-                </ol>
-            </div>
-        </section>
-
-        <section id="projetos" class="caso escuro">
-            <div class="wrap">
-                <div class="caso-texto">
-                    <span class="rotulo">Projeto em destaque</span>
-                    <h2>LabSystem: o laboratório inteiro em um sistema.</h2>
-                    <p>Um laboratório industrial controlava testes e laudos em registros manuais. Criamos um sistema que centraliza a rotina e guarda todo o histórico para consulta.</p>
-                    <ul class="caso-lista">
-                        <li>Testes e procedimentos centralizados em uma interface só</li>
-                        <li>Histórico completo e rastreável de cada teste</li>
-                        <li>Laudos técnicos gerados a partir do sistema</li>
-                    </ul>
-                    <div class="tags"><span>Python</span><span>C++</span><span>CustomTkinter</span><span>SQL</span></div>
-                </div>
-                <div class="caso-fotos">
-                    <img src="assets/images/projects/labsystem4.webp" alt="Tela do LabSystem em um computador, com a ficha de um teste aberta" width="1159" height="1400" loading="lazy">
-                    <img class="logo-caso" src="assets/images/projects/labsystem1.webp" alt="Logotipo do LabSystem" width="900" height="675" loading="lazy">
-                    <img class="logo-caso" src="assets/images/projects/labsystem3.webp" alt="Relatório de teste impresso pelo LabSystem" width="1159" height="1400" loading="lazy">
+                    </ol>
                 </div>
             </div>
         </section>
 
-        <section class="porque" aria-labelledby="porque-titulo">
+        <section id="projetos" class="h-caso escuro" aria-labelledby="caso-titulo">
             <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">Por que a MovCode</span>
-                    <h2 id="porque-titulo">Tecnologia sem enrolação.</h2>
-                </div>
-                <div class="motivos">
-                <div class="motivo">
-                    <h3>Preço fechado</h3>
-                    <p>O valor combinado na proposta é o valor final. Mudou o escopo, a gente conversa antes.</p>
-                </div>
-                <div class="motivo">
-                    <h3>Fala com quem faz</h3>
-                    <p>Você conversa direto com quem desenvolve, sem intermediário nem telefone de call center.</p>
-                </div>
-                <div class="motivo">
-                    <h3>Seus dados são seus</h3>
-                    <p>Banco de dados, cadastros e conteúdo pertencem à sua empresa. Sempre.</p>
-                </div>
-                <div class="motivo">
-                    <h3>Do tamanho certo</h3>
-                    <p>Nada de sistema gigante para problema pequeno. Começamos pelo que resolve e crescemos juntos.</p>
-                </div>
+                <div class="h-caso-rotulo"><span class="rotulo">Projeto em destaque</span></div>
+                <h2 id="caso-titulo" class="h-caso-titulo gigante">LabSystem</h2>
+                <div class="h-caso-grade">
+                    <div class="h-caso-foto" data-cursor="lab">
+                        <img src="assets/images/projects/labsystem4.webp" alt="Tela do LabSystem em um computador, com a ficha de um teste aberta" width="1159" height="1400" loading="lazy">
+                    </div>
+                    <div class="h-caso-texto">
+                        <img class="h-caso-mini" src="assets/images/projects/labsystem3.webp" alt="Relatório de teste impresso pelo LabSystem" width="1159" height="1400" loading="lazy">
+                        <p>Um laboratório industrial inteiro em um sistema: testes, histórico e laudos num lugar só.</p>
+                        <div class="tags"><span>Python</span><span>C++</span><span>SQL</span></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="duvidas" class="duvidas">
+        <section id="duvidas" class="h-duvidas" aria-labelledby="duvidas-titulo">
             <div class="wrap">
-                <div class="cabeca-secao">
-                    <span class="rotulo">Dúvidas</span>
-                    <h2>Perguntas que todo mundo faz antes de começar.</h2>
-                    <p>Não achou a sua? Mande no formulário abaixo.</p>
-                </div>
+                <h2 id="duvidas-titulo" class="h-grande gigante">Perguntas <em>rápidas.</em></h2>
                 <div class="perguntas">
                     <details class="pergunta">
                         <summary>Quanto custa um projeto?</summary>
@@ -405,10 +321,6 @@
                         <p>Sites e automações costumam sair em poucas semanas. Sistemas maiores são entregues em etapas, então você já começa a usar partes antes do projeto terminar. O prazo vai por escrito na proposta.</p>
                     </details>
                     <details class="pergunta">
-                        <summary>O diagnóstico gratuito tem algum compromisso?</summary>
-                        <p>Nenhum. É uma conversa de cerca de 30 minutos para entender a sua operação e apontar o caminho. Se fizer sentido para você, mandamos a proposta.</p>
-                    </details>
-                    <details class="pergunta">
                         <summary>Os dados e o sistema ficam com a minha empresa?</summary>
                         <p>Sim. O banco de dados, os cadastros, a sua marca e todo o conteúdo são da sua empresa. Os detalhes estão nos nossos <a href="termo.html">Termos de Uso</a>.</p>
                     </details>
@@ -416,26 +328,21 @@
                         <summary>Vocês atendem fora de Ribeirão Preto?</summary>
                         <p>Sim. Estamos em Ribeirão Preto e atendemos empresas de todo o Brasil, com reuniões por vídeo e acompanhamento próximo.</p>
                     </details>
-                    <details class="pergunta">
-                        <summary>E depois da entrega?</summary>
-                        <p>A gente continua junto. Há plano de manutenção com servidor, backups e suporte, para o sistema seguir rodando e evoluindo.</p>
-                    </details>
                 </div>
             </div>
         </section>
 
-        <section id="contato" class="contato escuro">
+        <section id="contato" class="h-contato" aria-labelledby="contato-titulo">
             <div class="wrap">
-                <div class="contato-texto">
+                <div class="h-contato-texto">
                     <span class="rotulo">Diagnóstico gratuito</span>
-                    <h2>Vamos achar onde sua empresa está <em>perdendo tempo</em>?</h2>
-                    <p>Conte o seu desafio em um minuto. Na conversa, mapeamos o gargalo e mostramos o caminho, sem custo e sem compromisso.</p>
+                    <h2 id="contato-titulo" class="h-contato-titulo gigante">Bora crescer?</h2>
+                    <p>Conte o seu desafio em um minuto. A gente responde no mesmo dia útil.</p>
                     <ul class="contato-lista">
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 30 minutos, por vídeo ou presencial</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Proposta com escopo, prazo e valor fechados</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg> Resposta no mesmo dia útil</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 30 minutos, sem compromisso</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Preço fechado na proposta</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Seus dados são seus</li>
                     </ul>
-                    <p class="contato-alt">Prefere e-mail? <a href="mailto:contato@movcode.com.br">contato@movcode.com.br</a></p>
                 </div>
                 <form class="form" data-lead-form novalidate>
                         <p class="form-titulo">Agende seu diagnóstico</p>
@@ -465,7 +372,6 @@
                     </form>
             </div>
         </section>
-
     </main>
 
     <a href="https://wa.me/5516000000000" class="whats-flutuante" data-whatsapp data-cta="flutuante" aria-label="Falar com a MovCode pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.22 8.24c0 4.54-3.69 8.23-8.24 8.23z"/></svg></a>
@@ -483,7 +389,7 @@
                 <div class="rodape-links">
                     <div>
                         <strong>Navegar</strong>
-                        <a href="#solucoes">Soluções</a>
+                        <a href="#escala">Soluções</a>
                         <a href="#como-funciona">Como funciona</a>
                         <a href="#projetos">Projetos</a>
                         <a href="diagnostico.html">Diagnóstico gratuito</a>
@@ -497,6 +403,7 @@
                     </div>
                 </div>
             </div>
+            <div class="rodape-gigante" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
             <div class="rodape-base">
                 <span>&copy; <span data-ano>2026</span> MovCode · Ribeirão Preto, SP</span>
                 <span><a href="politica.html">Privacidade</a> · <a href="termo.html">Termos de uso</a></span>
@@ -505,5 +412,9 @@
     </footer>
 
     <script src="assets/js/site.js"></script>
+    <script src="assets/js/vendor/gsap.min.js"></script>
+    <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+    <script src="assets/js/vendor/lenis.min.js"></script>
+    <script src="assets/js/home.js"></script>
 </body>
 </html>
