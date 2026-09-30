@@ -1,7 +1,8 @@
 /* =========================================================================
    MovCode — site
-   Base clara e fria, uma faixa escura para prova e contato.
-   Roxo = estrutura e confianca. Laranja = acao (botao, simbolo, ponto).
+   Estilos compartilhados: base, cabecalho, formulario, rodape, landing
+   e textos legais. A home conceitual fica em assets/css/home.css.
+   Grafite = estrutura. Laranja = assinatura e acao.
    ========================================================================= */
 :root {
     /* Marca */
@@ -68,11 +69,12 @@ p { margin: 0; }
 ul, ol { margin: 0; padding: 0; }
 :focus-visible { outline: 3px solid var(--primaria); outline-offset: 3px; border-radius: 6px; }
 .escuro :focus-visible, .rodape :focus-visible { outline-color: var(--destaque-noite); }
-section[id] { scroll-margin-top: 88px; }
+section[id] { scroll-margin-top: 96px; }
 
 .wrap { width: 100%; max-width: var(--largura); margin: 0 auto; padding-inline: 24px; }
 .pular { position: absolute; left: -999px; top: 8px; background: var(--tinta); color: #fff; padding: 10px 16px; border-radius: var(--r-sm); z-index: 100; }
 .pular:focus { left: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- Rotulos e titulos de secao ---------- */
 .rotulo {
@@ -117,19 +119,26 @@ section[id] { scroll-margin-top: 88px; }
 .escuro .btn-linha:hover { border-color: var(--sobre-noite); }
 .btn-pequeno { min-height: 42px; padding: 9px 18px; font-size: 15px; }
 
-/* ---------- Cabecalho ---------- */
+/* ---------- Cabecalho: capsula flutuante ---------- */
 .topo {
-    position: sticky;
-    top: 0;
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 50;
-    background: color-mix(in srgb, var(--papel) 86%, transparent);
-    backdrop-filter: saturate(1.4) blur(14px);
-    -webkit-backdrop-filter: saturate(1.4) blur(14px);
-    border-bottom: 1px solid transparent;
-    transition: border-color .2s ease;
+    width: min(calc(100% - 24px), 1040px);
+    background: color-mix(in srgb, var(--noite) 90%, transparent);
+    backdrop-filter: saturate(1.4) blur(16px);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+    border: 1px solid var(--noite-linha);
+    border-radius: var(--r-pill);
+    color: var(--sobre-noite);
+    transition: transform .4s cubic-bezier(.2, .7, .2, 1);
 }
-.topo.rolou { border-bottom-color: var(--linha); }
-.topo .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 72px; }
+.topo.escondido { transform: translate(-50%, calc(-100% - 20px)); }
+.topo .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; padding-inline: 10px 8px; max-width: none; }
+body:not(.home) { padding-top: 88px; }
+.topo .marca { color: var(--sobre-noite); padding-left: 10px; font-size: 22px; }
 .marca {
     display: inline-flex;
     align-items: center;
@@ -147,20 +156,20 @@ section[id] { scroll-margin-top: 88px; }
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
-    color: var(--tinta-2);
+    color: var(--sobre-noite-2);
     padding: 10px 14px;
     border-radius: var(--r-pill);
     transition: color .2s ease, background-color .2s ease;
 }
-.menu a:not(.btn):hover { color: var(--tinta); background: var(--realce); }
+.menu a:not(.btn):hover { color: var(--sobre-noite); background: var(--noite-2); }
 .menu .btn { margin-left: 10px; }
 .menu-botao {
     display: none;
     width: 46px; height: 46px;
     border-radius: 50%;
-    border: 1px solid var(--linha-forte);
-    background: var(--cartao);
-    color: var(--tinta);
+    border: 1px solid var(--noite-linha);
+    background: var(--noite-2);
+    color: var(--sobre-noite);
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -205,52 +214,7 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .garantias li { display: inline-flex; align-items: center; gap: 8px; }
 .garantias svg { width: 18px; height: 18px; color: var(--primaria); }
 
-/* ---------- Abertura da home: o simbolo em tres tamanhos ---------- */
-.abertura { padding: 12px 12px 0; }
-.abertura-bloco {
-    max-width: 1440px;
-    margin: 0 auto;
-    border-radius: var(--r-xl);
-    padding: clamp(56px, 8vw, 112px) 0;
-    overflow: hidden;
-}
-.abertura-grade { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(40px, 6vw, 96px); align-items: end; }
-.abertura-lado { display: grid; gap: 24px; justify-items: start; }
-.abertura h1 {
-    font-size: clamp(48px, 7vw, 108px);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.026em;
-    isolation: isolate;
-}
-.abertura h1 .tamanho { color: var(--destaque-noite); position: relative; white-space: nowrap; }
-.abertura h1 .tamanho::after {
-    content: "";
-    position: absolute;
-    left: -0.03em; right: -0.03em; bottom: 0.06em;
-    height: 0.16em;
-    border-radius: var(--r-pill);
-    background: var(--laranja);
-    z-index: -1;
-}
-.abertura-lado > p { font-size: clamp(20px, 1.8vw, 24px); color: var(--sobre-noite-2); }
-.abertura-lado .btn { margin-top: 8px; min-height: 58px; padding-inline: 30px; font-size: 17px; }
-
-/* A escada: o simbolo (duas figuras, disco + pilula) crescendo */
-.degraus { display: flex; justify-content: flex-end; align-items: flex-end; gap: clamp(16px, 2.4vw, 36px); }
-.degrau { display: grid; justify-items: center; gap: 14px; font: 500 13px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--sobre-noite-2); }
-.duo { --w: 64px; width: var(--w); display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--w) * 0.03); }
-.duo i { display: grid; align-content: start; gap: calc(var(--w) * 0.03); }
-.duo i::before, .duo i::after { content: ""; display: block; background: var(--laranja); }
-.duo i::before { aspect-ratio: 1; border-radius: 50%; }
-.duo i::after { aspect-ratio: 1 / 1.55; border-radius: var(--r-pill); }
-.degrau:nth-child(1) .duo { --w: clamp(40px, 4.4vw, 64px); }
-.degrau:nth-child(2) .duo { --w: clamp(64px, 7vw, 104px); }
-.degrau:nth-child(3) .duo { --w: clamp(96px, 10.4vw, 152px); }
-
-/* ---------- Soa familiar (mensagens) ---------- */
-.familiar { padding: var(--secao) 0; background: var(--cartao); border-block: 1px solid var(--linha); }
-.familiar .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
+/* ---------- Conversa (mensagens) ---------- */
 .conversa { display: grid; gap: 14px; }
 .msg {
     max-width: 440px;
@@ -266,49 +230,8 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .msg.resposta { justify-self: end; background: var(--primaria); border-color: var(--primaria); color: #fff; border-radius: 20px 20px 6px 20px; font-weight: 600; }
 .msg.resposta small { color: var(--sobre-primaria-2); }
 
-/* ---------- Solucoes por porte ---------- */
+/* ---------- Secao de lista (landing) ---------- */
 .solucoes { padding: var(--secao) 0; }
-.portes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
-.porte {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 32px 28px;
-    background: var(--cartao);
-    border: 1px solid var(--linha);
-    border-radius: var(--r-xl);
-}
-.porte.destaque { background: var(--tinta); border-color: var(--tinta); color: var(--sobre-noite); }
-.porte-topo { display: flex; align-items: center; justify-content: space-between; }
-.porte-nome { font: 600 13px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--primaria-texto); }
-.porte.destaque .porte-nome { color: var(--destaque-noite); }
-.porte-forma { display: flex; gap: 4px; align-items: flex-end; }
-.porte-forma span { display: block; width: 14px; background: var(--laranja); border-radius: var(--r-pill); }
-.porte h3 { font-size: 30px; font-weight: 700; }
-.porte > p { color: var(--tinta-2); }
-.porte.destaque > p { color: var(--sobre-noite-2); }
-.porte ul { list-style: none; display: grid; gap: 10px; }
-.porte li { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
-.porte li svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 3px; color: var(--primaria); }
-.porte.destaque li svg { color: var(--destaque-noite); }
-.porte .para-quem { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--linha); font-size: 15px; color: var(--tinta-2); }
-.porte.destaque .para-quem { border-top-color: var(--noite-linha); color: var(--sobre-noite-2); }
-.para-quem b { color: var(--tinta); }
-.porte.destaque .para-quem b { color: var(--sobre-noite); }
-.porte .btn { align-self: flex-start; }
-.porte.destaque .btn-linha { border-color: var(--noite-linha); color: var(--sobre-noite); }
-.porte.destaque .btn-linha:hover { border-color: var(--sobre-noite); }
-
-/* ---------- O que fazemos ---------- */
-.fazemos { padding: 0 0 var(--secao); }
-.servicos { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--linha); }
-.servicos li { padding: 28px 28px 28px 0; border-bottom: 1px solid var(--linha); display: grid; grid-template-columns: 44px 1fr; gap: 6px 16px; }
-.servicos li:not(:nth-child(3n + 1)) { padding-left: 28px; border-left: 1px solid var(--linha); }
-.servicos .icone { grid-row: span 2; width: 44px; height: 44px; border-radius: 12px; background: var(--realce); color: var(--primaria); display: grid; place-items: center; }
-.servicos .icone svg { width: 22px; height: 22px; }
-.servicos h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-.servicos p { font-size: 16px; color: var(--tinta-2); }
-
 /* ---------- Como funciona ---------- */
 .processo { padding: var(--secao) 0; background: var(--realce); }
 .passos { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: passo; }
@@ -322,30 +245,19 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .passo p { font-size: 16px; color: var(--tinta-2); }
 .passo .gratis { position: absolute; top: 24px; right: 20px; font-size: 12px; font-weight: 700; color: var(--laranja-tinta-txt); background: var(--laranja); padding: 3px 10px; border-radius: var(--r-pill); }
 
-/* ---------- Caso (faixa escura) ---------- */
+/* ---------- Simbolo em CSS: duas figuras (disco + pilula) ----------
+   <span class="duo"><i><b></b><b></b></i><i><b></b><b></b></i></span>
+   --w controla o tamanho, --cor a cor. */
+.duo { --w: 64px; --cor: var(--laranja); width: var(--w); display: inline-grid; grid-template-columns: 1fr 1fr; gap: calc(var(--w) * 0.03); flex-shrink: 0; vertical-align: bottom; }
+.duo i { display: grid; align-content: start; gap: calc(var(--w) * 0.03); }
+.duo b { display: block; background: var(--cor); }
+.duo b:first-child { aspect-ratio: 1; border-radius: 50%; }
+.duo b:last-child { aspect-ratio: 1 / 1.55; border-radius: 999px; }
+
+/* ---------- Faixas escuras e tags ---------- */
 .escuro { background: var(--noite); color: var(--sobre-noite); }
-.caso { padding: var(--secao) 0; }
-.caso .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
-.caso-texto { display: grid; gap: 22px; }
-.caso-texto h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 700; }
-.caso-texto p { color: var(--sobre-noite-2); font-size: 18px; }
-.caso-lista { list-style: none; display: grid; gap: 12px; }
-.caso-lista li { display: flex; gap: 12px; }
-.caso-lista li::before { content: ""; flex-shrink: 0; width: 10px; height: 10px; margin-top: 9px; border-radius: 50%; background: var(--laranja); }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tags span { font: 500 13px var(--f-mono); padding: 5px 12px; border-radius: var(--r-pill); border: 1px solid var(--noite-linha); color: var(--sobre-noite-2); }
-.caso-fotos { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
-.caso-fotos img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-lg); }
-.caso-fotos img:first-child { grid-row: span 2; aspect-ratio: 1159 / 1400; }
-.caso-fotos .logo-caso { aspect-ratio: 4 / 3; }
-.caso-nota { font-size: 14px !important; color: var(--sobre-noite-2); }
-
-/* ---------- Por que ---------- */
-.porque { padding: var(--secao) 0; }
-.motivos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.motivo { padding: 26px 24px; border-radius: var(--r-lg); background: var(--cartao); border: 1px solid var(--linha); display: grid; gap: 10px; align-content: start; }
-.motivo h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-.motivo p { font-size: 16px; color: var(--tinta-2); }
 
 /* ---------- Duvidas ---------- */
 .duvidas { padding: 0 0 var(--secao); }
@@ -448,6 +360,19 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .rodape-links strong { color: var(--sobre-noite); font-size: 14px; }
 .rodape-links a { text-decoration: none; font-size: 15px; }
 .rodape-links a:hover { color: var(--sobre-noite); }
+.rodape-gigante {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.05em;
+    overflow: hidden;
+    font: 800 clamp(52px, 16.5vw, 250px)/0.8 var(--f-display);
+    font-stretch: 75%;
+    letter-spacing: -0.05em;
+    color: var(--laranja);
+    padding-top: 0.06em;
+    user-select: none;
+}
+.rodape-gigante .duo { --w: 0.62em; margin-right: 0.08em; margin-bottom: 0.02em; }
 .rodape-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--noite-linha); font-size: 14px; }
 
 /* ---------- WhatsApp flutuante ---------- */
@@ -491,12 +416,6 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .lp-sinais p { font-size: 16px; color: var(--tinta-2); }
 
 /* ---------- Movimento ---------- */
-@media (prefers-reduced-motion: no-preference) {
-    .degrau .duo { animation: subir .7s cubic-bezier(.2, .7, .2, 1) both; }
-    .degrau:nth-child(2) .duo { animation-delay: .1s; }
-    .degrau:nth-child(3) .duo { animation-delay: .2s; }
-    @keyframes subir { from { transform: translateY(16px); } to { transform: none; } }
-}
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
@@ -504,28 +423,25 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 1080px) {
-    .hero .wrap, .familiar .wrap, .caso .wrap, .contato .wrap, .duvidas .wrap { grid-template-columns: 1fr; gap: 48px; }
-    .abertura-grade { grid-template-columns: 1fr; align-items: start; }
-    .degraus { justify-content: flex-start; }
-    .portes { grid-template-columns: 1fr; max-width: 640px; }
-    .passos, .motivos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .servicos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .servicos li, .servicos li:not(:nth-child(3n + 1)) { padding: 24px 24px 24px 0; border-left: 0; }
-    .servicos li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--linha); }
+    .hero .wrap, .contato .wrap, .duvidas .wrap { grid-template-columns: 1fr; gap: 48px; }
+    .passos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .duvidas .cabeca-secao { position: static; }
     .lp-sinais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 820px) {
     .menu-botao { display: inline-flex; }
+    /* A capsula tem transform, entao o menu se posiciona em relacao a ela */
     .menu {
-        position: fixed;
-        inset: 72px 12px auto 12px;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: 0;
         flex-direction: column;
         align-items: stretch;
         gap: 4px;
         padding: 12px;
-        background: var(--cartao);
-        border: 1px solid var(--linha);
+        background: var(--noite);
+        border: 1px solid var(--noite-linha);
         border-radius: var(--r-lg);
         box-shadow: var(--sombra);
         opacity: 0;
@@ -542,13 +458,7 @@ body.menu-aberto .menu-botao .fechar { display: block; }
     .wrap { padding-inline: 18px; }
     .hero { padding-top: 32px; }
     .hero-acoes .btn { width: 100%; }
-    .abertura { padding: 8px 8px 0; }
-    .abertura-bloco { border-radius: var(--r-lg); }
-    .abertura-lado .btn { width: 100%; }
-    .degraus { justify-content: flex-start; }
-    .passos, .motivos, .servicos, .lp-sinais { grid-template-columns: 1fr; }
-    .servicos li, .servicos li:nth-child(even) { padding: 22px 0; border-left: 0; }
+    .passos, .lp-sinais { grid-template-columns: 1fr; }
     .form { padding: 28px 20px; }
-    .porte { padding: 28px 22px; }
     .whats-flutuante { right: 14px; bottom: 14px; width: 54px; height: 54px; }
 }
