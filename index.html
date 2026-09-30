@@ -11,6 +11,14 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Chegando de outra pagina do site: comeca coberto de laranja (transicao)
+        try {
+            if (sessionStorage.getItem('movcode_transicao') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.classList.add('chegando');
+            }
+        } catch (e) {}
+    </script>
     <title>MovCode | Tecnologia do tamanho do seu negócio</title>
     <meta name="description" content="Do mercadinho à indústria: a MovCode cria sites, sistemas de gestão e automações sob medida. Comece com um diagnóstico gratuito de 30 minutos.">
     <meta name="robots" content="index, follow">
@@ -132,7 +140,7 @@
     <header class="topo">
         <div class="wrap">
             <a href="#inicio" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+                <span class="duo duo-vivo duo-pula" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
             <button class="menu-botao" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false">
@@ -162,7 +170,7 @@
             <div class="h-hero-base">
                 <div class="wrap">
                     <p><span>Sites, sistemas e automações.</span> <span>Do mercadinho à indústria.</span></p>
-                    <a href="#escala" class="h-rolar"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>Role para crescer</a>
+                    <a href="#escala" class="h-rolar"><span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>Role para crescer</a>
                     <a href="#contato" class="btn btn-acao" data-cta="hero" data-magnetico data-cursor="bora">Diagnóstico grátis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
             </div>
@@ -381,7 +389,7 @@
             <div class="rodape-topo">
                 <div>
                     <a href="#inicio" class="marca" aria-label="MovCode, página inicial">
-                <img src="assets/images/logos/movcode-simbolo.svg" alt="" width="22" height="28">
+                <span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>
                 <span>Mov<span class="code">Code</span><span class="ponto">.</span></span>
             </a>
                     <p class="rodape-frase">Tecnologia do tamanho do seu negócio.</p>
@@ -403,7 +411,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rodape-gigante" aria-hidden="true"><span class="duo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
+            <div class="rodape-gigante" aria-hidden="true"><span class="duo duo-vivo" aria-hidden="true"><i><b></b><b></b></i><i><b></b><b></b></i></span>MovCode.</div>
             <div class="rodape-base">
                 <span>&copy; <span data-ano>2026</span> MovCode · Ribeirão Preto, SP</span>
                 <span><a href="politica.html">Privacidade</a> · <a href="termo.html">Termos de uso</a></span>

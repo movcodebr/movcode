@@ -27,16 +27,8 @@
         gsap.ticker.add((tempo) => lenis.raf(tempo * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        document.querySelectorAll('a[href^="#"]').forEach((link) => {
-            link.addEventListener('click', (event) => {
-                const id = link.getAttribute('href');
-                const alvo = id.length > 1 ? document.querySelector(id) : null;
-                if (!alvo) return;
-                event.preventDefault();
-                lenis.scrollTo(alvo, { duration: 1.4 });
-                history.pushState(null, '', id);
-            });
-        });
+        // Os links de secao (site.js) usam a rolagem suave do Lenis
+        window.MOVCODE_ROLAR = (alvo, imediato = false) => lenis.scrollTo(alvo, imediato ? { immediate: true } : { duration: 1.4 });
     }
 
     // ---------- Divide titulos em palavras ou letras com mascara ----------
@@ -401,5 +393,27 @@
 
     // Recalcula as posicoes quando fontes e imagens terminam de carregar
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
-    window.addEventListener('load', () => ScrollTrigger.refresh());
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+        // Chegou com "#secao" (link de outra pagina): rola ate la depois de
+        // calcular as secoes travadas e tira o "#" do endereco
+        if (window.location.hash) {
+            const alvo = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+            if (alvo) {
+                // Espera as fontes e o recalculo das secoes travadas antes de rolar
+                const irAteAlvo = () => {
+                    ScrollTrigger.refresh();
+                    const y = alvo.getBoundingClientRect().top + window.scrollY;
+                    if (lenis) {
+                        lenis.resize(); // a altura mudou com as secoes travadas
+                        lenis.scrollTo(y, { immediate: true, force: true });
+                    } else {
+                        window.scrollTo(0, y);
+                    }
+                };
+                (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(irAteAlvo, 60));
+            }
+        }
+    });
 })();

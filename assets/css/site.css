@@ -151,7 +151,7 @@ body:not(.home) { padding-top: 88px; }
     letter-spacing: -0.02em;
     color: var(--tinta);
 }
-.marca img { width: 22px; height: 28px; }
+.marca .duo { --w: 22px; align-self: center; }
 .marca .code { color: var(--logo-code); }
 .marca .ponto { color: var(--laranja); }
 .menu { display: flex; align-items: center; gap: 4px; }
@@ -256,6 +256,43 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .duo b { display: block; background: var(--cor); }
 .duo b:first-child { aspect-ratio: 1; border-radius: 50%; }
 .duo b:last-child { aspect-ratio: 1 / 1.55; border-radius: 999px; }
+
+/* ---------- Simbolo vivo: os olhos seguem o mouse, pisca e pula ----------
+   O script (site.js) atualiza --olho-x / --olho-y e liga .piscando / .pulando. */
+.duo-vivo b:first-child {
+    transform: translate(var(--olho-x, 0px), var(--olho-y, 0px));
+    transition: transform .18s ease-out;
+}
+.duo-vivo.piscando b:first-child { transform: translate(var(--olho-x, 0px), var(--olho-y, 0px)) scaleY(0.12); transition-duration: .08s; }
+.duo-pula.pulando { animation: duo-pulo .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes duo-pulo { 35% { transform: translateY(-28%) scaleY(1.06); } 70% { transform: translateY(4%) scaleY(0.95); } }
+
+/* ---------- Transicao entre paginas: circulo laranja ---------- */
+.transicao {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: grid;
+    place-items: center;
+    background: var(--laranja);
+    pointer-events: none;
+    clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
+    transition: clip-path .7s cubic-bezier(.76, 0, .24, 1);
+}
+.transicao.cobrindo { clip-path: circle(150% at var(--tx, 50%) var(--ty, 50%)); pointer-events: auto; }
+.transicao.sem-animacao { transition: none; }
+.transicao .duo { --w: clamp(56px, 7vw, 88px); --cor: var(--noite); transition: transform .5s cubic-bezier(.3, 1.4, .5, 1); }
+.transicao:not(.cobrindo) .duo { transform: scale(0.4); }
+/* Chegando de outra pagina: laranja desde o primeiro quadro (rede de seguranca de 2s) */
+html.chegando body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 499;
+    background: var(--laranja);
+    animation: chegada-some 0s 2s forwards;
+}
+@keyframes chegada-some { to { visibility: hidden; } }
 
 /* ---------- Faixas escuras e tags ---------- */
 .escuro { background: var(--noite); color: var(--sobre-noite); }
@@ -421,6 +458,8 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 /* ---------- Movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    .duo-vivo b:first-child { transform: none !important; }
+    .duo-pula.pulando { animation: none; }
     * { transition: none !important; }
 }
 
