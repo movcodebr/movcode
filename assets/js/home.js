@@ -185,8 +185,12 @@
         const detalhes = capitulos.map((cap) => cap.querySelectorAll('.h-cap-num, .h-cap-linha, .h-cap-link'));
         gsap.set(duo, { xPercent: -50, yPercent: -50, scale: 0.45 });
         gsap.set(nomes, { xPercent: -50, yPercent: -50 });
-        // As palavras seguintes comecam escondidas abaixo da janela; os textos pequenos, apagados
-        gsap.set(palavras.slice(1), { yPercent: 150 });
+        // Mesmo efeito dos titulos: a palavra sobe um pouco enquanto sai do desfoque
+        const OCULTA_EMBAIXO = { yPercent: 35, opacity: 0, filter: 'blur(14px)' };
+        const OCULTA_EM_CIMA = { yPercent: -35, opacity: 0, filter: 'blur(14px)' };
+        const NITIDA = { yPercent: 0, opacity: 1, filter: 'blur(0px)' };
+        // As palavras seguintes comecam escondidas; os textos pequenos, apagados
+        gsap.set(palavras.slice(1), OCULTA_EMBAIXO);
         detalhes.slice(1).forEach((grupo) => gsap.set(grupo, { autoAlpha: 0 }));
 
         const tl = gsap.timeline({
@@ -194,14 +198,14 @@
             scrollTrigger: { trigger: palco, start: 'top top', end: '+=340%', pin: true, scrub: 0.8, anticipatePin: 1 }
         });
 
-        // Troca de palavra: a que sai desliza para cima e some pela janela, depois a
-        // proxima sobe de baixo. Sempre solidas e nunca juntas, entao o simbolo
-        // nao se mistura com o texto. Os textos pequenos trocam com fade suave.
+        // Troca de palavra: a que sai sobe e se desfaz no desfoque, depois a proxima
+        // sobe saindo do desfoque. Nunca as duas ao mesmo tempo. Os textos pequenos
+        // trocam com fade suave.
         const sair = (i, em) => tl
-            .to(palavras[i], { yPercent: -150, duration: 0.24, ease: 'power2.in' }, em)
+            .to(palavras[i], { ...OCULTA_EM_CIMA, duration: 0.24, ease: 'power2.in' }, em)
             .to(detalhes[i], { autoAlpha: 0, duration: 0.18, ease: 'power1.in' }, em);
         const entrar = (i, em) => tl
-            .fromTo(palavras[i], { yPercent: 150 }, { yPercent: 0, duration: 0.26, ease: 'power3.out', immediateRender: false }, em)
+            .fromTo(palavras[i], OCULTA_EMBAIXO, { ...NITIDA, duration: 0.26, ease: 'power3.out', immediateRender: false }, em)
             .fromTo(detalhes[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.22, ease: 'power1.out', immediateRender: false }, em + 0.06);
 
         const tamanhos = [1, 1.9, 3.1];

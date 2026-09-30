@@ -143,9 +143,6 @@ html.anima .h-cap-nome {
     font-size: clamp(72px, 21vw, 360px);
     font-stretch: 75%;
     white-space: nowrap;
-    /* Janela invisivel: a palavra entra e sai deslizando por dentro dela */
-    overflow: hidden;
-    padding: 0.08em 0.06em 0.22em;
     /* Preenchido (sem text-stroke: em fonte variavel o contorno desenha
        as sobreposicoes internas dos glifos). Fica na frente do simbolo. */
     color: var(--sobre-noite);
