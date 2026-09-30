@@ -257,15 +257,27 @@ body.menu-aberto .menu-botao .fechar { display: block; }
 .duo b:first-child { aspect-ratio: 1; border-radius: 50%; }
 .duo b:last-child { aspect-ratio: 1 / 1.55; border-radius: 999px; }
 
-/* ---------- Simbolo vivo: os olhos seguem o mouse, pisca e pula ----------
-   O script (site.js) atualiza --olho-x / --olho-y e liga .piscando / .pulando. */
-.duo-vivo b:first-child {
+/* ---------- Simbolo vivo (so no letreiro do rodape) ----------
+   Os circulos sao as cabecas das duas pessoas. Cada cabeca ganha dois olhos
+   que seguem o mouse e piscam: o script (site.js) atualiza --olho-x/--olho-y
+   e liga .piscando. */
+.duo-vivo b:first-child { position: relative; }
+.duo-vivo b:first-child::before,
+.duo-vivo b:first-child::after {
+    content: "";
+    position: absolute;
+    top: 38%;
+    width: 15%;
+    height: 19%;
+    border-radius: 50%;
+    background: var(--noite);
     transform: translate(var(--olho-x, 0px), var(--olho-y, 0px));
     transition: transform .18s ease-out;
 }
-.duo-vivo.piscando b:first-child { transform: translate(var(--olho-x, 0px), var(--olho-y, 0px)) scaleY(0.12); transition-duration: .08s; }
-.duo-pula.pulando { animation: duo-pulo .5s cubic-bezier(.3, 1.6, .5, 1); }
-@keyframes duo-pulo { 35% { transform: translateY(-28%) scaleY(1.06); } 70% { transform: translateY(4%) scaleY(0.95); } }
+.duo-vivo b:first-child::before { left: 26%; }
+.duo-vivo b:first-child::after { right: 26%; }
+.duo-vivo.piscando b:first-child::before,
+.duo-vivo.piscando b:first-child::after { transform: translate(var(--olho-x, 0px), var(--olho-y, 0px)) scaleY(0.12); transition-duration: .08s; }
 
 /* ---------- Transicao entre paginas: circulo laranja ---------- */
 .transicao {
@@ -458,8 +470,7 @@ html.chegando body::before {
 /* ---------- Movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .duo-vivo b:first-child { transform: none !important; }
-    .duo-pula.pulando { animation: none; }
+    .duo-vivo b:first-child::before, .duo-vivo b:first-child::after { transform: none !important; }
     * { transition: none !important; }
 }
 
