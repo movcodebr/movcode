@@ -364,7 +364,7 @@ body.menu-aberto .menu-botao .fechar { display: block; }
     display: flex;
     align-items: flex-end;
     gap: 0.05em;
-    overflow: hidden;
+    overflow-x: clip;
     font: 800 clamp(52px, 16.5vw, 250px)/0.8 var(--f-display);
     font-stretch: 75%;
     letter-spacing: -0.05em;

@@ -23,8 +23,8 @@ html.anima .home.mostrar-whats .whats-flutuante { transform: scale(1); }
     letter-spacing: -0.035em;
     text-wrap: balance;
 }
-/* Mascaras para revelar palavras de baixo para cima (criadas pelo script) */
-.m { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0.06em 0.03em 0.12em; margin: -0.06em -0.03em -0.12em; }
+/* Palavras e letras separadas pelo script para a entrada suave */
+.m { display: inline-block; vertical-align: bottom; }
 .p, .l { display: inline-block; will-change: transform; }
 
 /* ---------- Abertura (intro) ---------- */
@@ -43,8 +43,8 @@ html.intro-ativa .intro {
 .intro .duo { --w: clamp(72px, 9vw, 120px); }
 
 /* Titulo do hero escondido ate o script assumir (com rede de seguranca) */
-html.anima-pre .h-titulo .p { transform: translateY(110%); animation: titulo-aparece 0s 3s forwards; }
-@keyframes titulo-aparece { to { transform: none; } }
+html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwards; }
+@keyframes titulo-aparece { to { opacity: 1; } }
 
 /* ---------- Cursor ---------- */
 .cursor, .cursor-anel { display: none; }
