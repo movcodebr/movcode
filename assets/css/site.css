@@ -66,6 +66,9 @@ img, svg { max-width: 100%; display: block; }
 a { color: inherit; }
 h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
 p { margin: 0; }
+/* Evita palavra sozinha na ultima linha */
+p, li, summary, figcaption { text-wrap: pretty; }
+.msg, .hero-sub, .lp-sinais p, .passo p { text-wrap: balance; }
 ul, ol { margin: 0; padding: 0; }
 :focus-visible { outline: 3px solid var(--primaria); outline-offset: 3px; border-radius: 6px; }
 .escuro :focus-visible, .rodape :focus-visible { outline-color: var(--destaque-noite); }

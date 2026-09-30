@@ -113,7 +113,9 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
 .h-titulo .tamanho .l { font-size: calc(var(--s) * 1em); }
 .h-hero-base { position: absolute; left: 0; right: 0; bottom: clamp(20px, 4vh, 40px); }
 .h-hero-base .wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; max-width: none; padding-inline: clamp(18px, 4vw, 48px); }
-.h-hero-base p { max-width: 300px; color: var(--sobre-noite-2); font-size: 16px; line-height: 1.5; }
+.h-hero-base p { max-width: 320px; color: var(--sobre-noite-2); font-size: 16px; line-height: 1.5; }
+/* Uma frase por linha: quebra sempre no ponto final */
+.h-hero-base p span { display: block; white-space: nowrap; }
 .h-rolar { display: grid; justify-items: center; gap: 10px; font: 500 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--sobre-noite-2); text-decoration: none; }
 .h-rolar .duo { --w: 20px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -143,7 +145,7 @@ html:not(.anima) .h-hero-base .wrap { padding-right: 96px; }
 .h-cap.c3 .duo { --w: 112px; }
 .h-cap-num { font: 500 13px var(--f-mono); letter-spacing: .06em; color: var(--laranja); }
 .h-cap-nome { font-size: clamp(44px, 6vw, 88px); }
-.h-cap-linha { font: 700 clamp(20px, 1.8vw, 26px)/1.25 var(--f-display); letter-spacing: -0.01em; max-width: 320px; }
+.h-cap-linha { font: 700 clamp(20px, 1.8vw, 26px)/1.25 var(--f-display); letter-spacing: -0.01em; max-width: 360px; text-wrap: balance; }
 .h-cap-link { color: var(--laranja); font-weight: 700; text-decoration: none; }
 .h-cap-link:hover { text-decoration: underline; }
 
@@ -156,13 +158,13 @@ html.anima .h-cap-nome {
     position: absolute;
     left: 50%;
     top: 50%;
-    z-index: 3;
+    z-index: 1;
     font-size: clamp(72px, 21vw, 360px);
     font-stretch: 75%;
     white-space: nowrap;
-    /* Preenchido e translucido: contorno (text-stroke) em fonte variavel
-       desenha as sobreposicoes internas dos glifos. */
-    color: rgba(255, 255, 255, 0.14);
+    /* Preenchido (sem text-stroke: em fonte variavel o contorno desenha
+       as sobreposicoes internas dos glifos). Fica atras do simbolo. */
+    color: var(--sobre-noite);
 }
 html.anima .h-cap-num { position: absolute; left: clamp(18px, 5vw, 72px); top: 112px; }
 html.anima .h-cap-linha { position: absolute; left: clamp(18px, 5vw, 72px); bottom: 9vh; }
@@ -198,8 +200,7 @@ html.anima .h-escala-progresso {
 .h-faixa-linha + .h-faixa-linha { margin-top: 0.08em; }
 .h-faixa-linha .item { display: inline-flex; align-items: center; gap: 0.28em; padding-right: 0.28em; }
 .h-faixa-linha .duo { --w: 0.42em; --cor: var(--noite); }
-.h-faixa-linha.contorno { color: color-mix(in srgb, var(--noite) 28%, var(--laranja)); }
-.h-faixa-linha.contorno .duo { --cor: color-mix(in srgb, var(--noite) 28%, var(--laranja)); }
+.h-faixa-linha.contorno { color: var(--noite); }
 
 /* ---------- Conversa ---------- */
 .h-conversa { background: var(--papel); color: var(--tinta); padding: var(--secao) 0; }
@@ -360,3 +361,6 @@ html.anima .h-escala-progresso {
     .h-card h3 { margin-top: 12px; }
     .h-hero-base .btn { width: 100%; }
 }
+
+/* Textos curtos com linhas equilibradas */
+.h-card p, .h-caso-texto p, .h-contato-texto > p, .h-servicos-intro p, .h-passo p, .bolha, .contato-lista li { text-wrap: balance; }
