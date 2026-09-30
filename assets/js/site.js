@@ -161,3 +161,19 @@ document.querySelectorAll('[data-lead-form]').forEach((form) => {
 document.querySelectorAll('[data-ano]').forEach((el) => {
     el.textContent = new Date().getFullYear();
 });
+
+// Abertura: escolher o tamanho do negocio troca o texto do que a gente constroi
+document.querySelectorAll('[data-escala]').forEach((escala) => {
+    const degraus = escala.querySelectorAll('.degrau');
+    const texto = escala.querySelector('[data-escala-texto]');
+
+    degraus.forEach((degrau) => {
+        degrau.addEventListener('click', () => {
+            degraus.forEach((outro) => outro.setAttribute('aria-pressed', String(outro === degrau)));
+            if (texto) {
+                texto.textContent = degrau.dataset.texto;
+            }
+            rastrear('hero_porte', { porte: degrau.querySelector('.degrau-nome')?.textContent });
+        });
+    });
+});
