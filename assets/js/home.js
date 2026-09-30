@@ -130,20 +130,6 @@
     });
 
     const hero = document.querySelector('.h-hero');
-    if (hero && ponteiroFino) {
-        let alvoX = 50, alvoY = 42, atualX = 50, atualY = 42;
-        hero.addEventListener('pointermove', (event) => {
-            const caixa = hero.getBoundingClientRect();
-            alvoX = ((event.clientX - caixa.left) / caixa.width) * 100;
-            alvoY = ((event.clientY - caixa.top) / caixa.height) * 100;
-        });
-        gsap.ticker.add(() => {
-            atualX += (alvoX - atualX) * 0.08;
-            atualY += (alvoY - atualY) * 0.08;
-            hero.style.setProperty('--mx', `${atualX}%`);
-            hero.style.setProperty('--my', `${atualY}%`);
-        });
-    }
 
     if (hero) {
         // O WhatsApp flutuante so aparece depois do hero, para nao cobrir o botao
@@ -204,16 +190,27 @@
             defaults: { ease: 'none' },
             scrollTrigger: { trigger: palco, start: 'top top', end: '+=340%', pin: true, scrub: 0.6, anticipatePin: 1 }
         });
+        // Troca de palavra como cortina, sem transparencia: a que sai e recolhida
+        // de baixo para cima, sempre solida; so depois a proxima e revelada.
+        // Assim nunca aparece texto, simbolo e texto sobrepostos.
+        const VISIVEL = 'inset(-25% -5% -25% -5%)'; // folga para acentos e descendentes
+        const RECOLHIDA = 'inset(-25% -5% 125% -5%)';
+        const ESCONDIDA_EMBAIXO = 'inset(125% -5% -25% -5%)';
+        gsap.set(nomes, { clipPath: VISIVEL });
+
         const tamanhos = [1, 1.9, 3.1];
         capitulos.forEach((cap, i) => {
             tl.to(duo, { scale: tamanhos[i], duration: 1 }, i)
                 .fromTo(nomes[i], { scale: 0.86 }, { scale: 1.06, duration: 1 }, i);
             if (i > 0) {
-                tl.to(capitulos[i - 1], { autoAlpha: 0, duration: 0.15 }, i - 0.08)
-                    .fromTo(cap, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, i);
+                tl.to(nomes[i - 1], { clipPath: RECOLHIDA, duration: 0.12, ease: 'power2.in' }, i - 0.14)
+                    .set(capitulos[i - 1], { autoAlpha: 0 }, i - 0.02)
+                    .set(cap, { autoAlpha: 1 }, i - 0.02)
+                    .fromTo(nomes[i], { clipPath: ESCONDIDA_EMBAIXO }, { clipPath: VISIVEL, duration: 0.12, ease: 'power2.out', immediateRender: false }, i);
             }
         });
-        tl.to(capitulos.at(-1), { autoAlpha: 0, duration: 0.2 }, 3)
+        tl.to(nomes.at(-1), { clipPath: RECOLHIDA, duration: 0.12, ease: 'power2.in' }, 2.9)
+            .set(capitulos.at(-1), { autoAlpha: 0 }, 3.02)
             .to('.h-escala-fundo', { clipPath: 'circle(150% at 50% 50%)', duration: 0.9, ease: 'power2.in' }, 3)
             .to('.h-escala-progresso i', { scaleX: 1, duration: 3.9 }, 0);
     }
@@ -281,6 +278,24 @@
     midias.add('(max-width: 820px)', () => {
         gsap.utils.toArray('.h-card').forEach((card) => {
             gsap.from(card, { y: 40, autoAlpha: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: card, start: 'top 88%' } });
+        });
+    });
+
+    // ---------- Texto curvo dos cards: desliza devagar pela curva ----------
+    // Mede depois das fontes carregarem: o comprimento do texto depende delas
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+        document.querySelectorAll('.h-card-curva textPath').forEach((caminho, i) => {
+            const texto = caminho.parentNode;
+            const repeticoes = Math.max(1, Math.round(caminho.textContent.length / (caminho.dataset.repete || caminho.textContent).length));
+            const passo = texto.getComputedTextLength() / repeticoes; // comprimento de uma repeticao
+            if (!passo) return;
+            const inicio = -passo * (0.2 + (i % 3) * 0.25);
+            gsap.fromTo(caminho, { attr: { startOffset: inicio } }, {
+                attr: { startOffset: inicio - passo },
+                duration: passo / 28,
+                ease: 'none',
+                repeat: -1
+            });
         });
     });
 

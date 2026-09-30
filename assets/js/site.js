@@ -202,12 +202,12 @@ window.addEventListener('load', () => {
     history.replaceState(null, '', window.location.pathname + window.location.search);
 });
 
-// ---------- Simbolo vivo ----------
+// ---------- Simbolo vivo (letreiro do rodape) ----------
 (() => {
     const simbolos = [...document.querySelectorAll('.duo-vivo')];
     if (!simbolos.length || MOVCODE_MOVIMENTO_REDUZIDO) return;
 
-    // Os olhos (discos) olham para o mouse
+    // Os olhos, dentro das cabecas, olham para o mouse
     if (window.matchMedia('(pointer: fine)').matches) {
         let mouseX = 0;
         let mouseY = 0;
@@ -220,7 +220,7 @@ window.addEventListener('load', () => {
                 const dx = mouseX - (caixa.left + caixa.width / 2);
                 const dy = mouseY - (caixa.top + caixa.height * 0.25);
                 const distancia = Math.hypot(dx, dy) || 1;
-                const alcance = caixa.width * 0.12 * Math.min(distancia / 240, 1);
+                const alcance = caixa.width * 0.05 * Math.min(distancia / 240, 1);
                 duo.style.setProperty('--olho-x', `${(dx / distancia) * alcance}px`);
                 duo.style.setProperty('--olho-y', `${(dy / distancia) * alcance}px`);
             });
@@ -244,23 +244,6 @@ window.addEventListener('load', () => {
         };
         setTimeout(piscar, 1200 + Math.random() * 3000);
     });
-
-    // O simbolo do cabecalho da um pulinho quando o mouse passa por um botao
-    const pulador = document.querySelector('.duo-pula');
-    if (pulador) {
-        let ultimo = null;
-        document.addEventListener('pointerover', (event) => {
-            const botao = event.target.closest('.btn, .menu a, [data-cta]');
-            if (!botao || botao === ultimo) return;
-            ultimo = botao;
-            pulador.classList.remove('pulando');
-            void pulador.offsetWidth; // reinicia a animacao
-            pulador.classList.add('pulando');
-        });
-        document.addEventListener('pointerout', (event) => {
-            if (ultimo && event.target.closest('.btn, .menu a, [data-cta]') === ultimo && !ultimo.contains(event.relatedTarget)) ultimo = null;
-        });
-    }
 })();
 
 // ---------- Transicao entre paginas ----------

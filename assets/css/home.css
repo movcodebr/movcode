@@ -87,25 +87,6 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
     padding: 120px 0 160px;
     overflow: hidden;
 }
-/* luz laranja que segue o mouse */
-.h-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(680px circle at var(--mx, 50%) var(--my, 42%), color-mix(in srgb, var(--laranja) 24%, transparent), transparent 62%);
-}
-/* textura de pontos */
-.h-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-    background-size: 26px 26px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%);
-    mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%);
-}
 .h-titulo { font-size: clamp(46px, 11vw, 190px); text-align: center; line-height: 0.88; padding-inline: 12px; }
 .h-titulo .linha { display: block; }
 .h-titulo .tamanho { color: var(--laranja); }
@@ -276,6 +257,20 @@ html.anima .h-escala-progresso {
 .h-card-icone svg { width: 28px; height: 28px; }
 .h-card h3 { margin-top: auto; font: 800 clamp(30px, 2.8vw, 44px)/0.95 var(--f-display); font-stretch: 85%; letter-spacing: -0.03em; }
 .h-card p { color: var(--sobre-noite-2); transition: color .35s ease; }
+/* Texto curvo atravessando o card (onda ou diagonal, alternados) */
+.h-card { position: relative; overflow: hidden; }
+.h-card > :not(.h-card-curva) { position: relative; z-index: 1; }
+.h-card-curva { position: absolute; left: -12px; right: -12px; top: 72px; height: 220px; z-index: 0; pointer-events: none; }
+.h-card-curva svg { width: 100%; height: 100%; overflow: visible; }
+.h-card-curva text {
+    font: 800 44px var(--f-display);
+    font-stretch: 78%;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    fill: #2C2F35;
+    transition: fill .35s ease;
+}
+.h-card:hover .h-card-curva text { fill: var(--noite); }
 .h-card:hover { background: var(--laranja); color: var(--noite); }
 .h-card:hover p, .h-card:hover .h-card-num { color: var(--noite); }
 .h-card:hover .h-card-icone { transform: rotate(-12deg) scale(1.08); }
@@ -357,8 +352,8 @@ html.anima .h-escala-progresso {
     html:not(.anima) .h-hero-base .wrap { padding-right: clamp(18px, 4vw, 48px); }
     .h-servicos-trilho { grid-template-columns: 1fr; }
     .h-passos { grid-template-columns: 1fr; }
-    .h-card { min-height: 0; padding: 26px; }
-    .h-card h3 { margin-top: 12px; }
+    .h-card { min-height: 320px; padding: 26px; }
+    .h-card-curva { top: 56px; }
     .h-hero-base .btn { width: 100%; }
 }
 
