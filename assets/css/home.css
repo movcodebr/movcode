@@ -75,6 +75,7 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
     html.anima .cursor-anel.ativo { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--laranja); border-color: var(--laranja); }
     html.anima .cursor-anel span { opacity: 0; transition: opacity .2s ease; }
     html.anima .cursor-anel.ativo span { opacity: 1; }
+    html.anima .cursor-anel.ativo.sobre-laranja { background: var(--noite); border-color: var(--noite); color: var(--sobre-noite); }
 }
 
 /* ---------- Hero ---------- */
@@ -308,6 +309,41 @@ html.anima .h-escala-progresso {
 .h-caso-texto p { font: 700 clamp(22px, 2vw, 30px)/1.25 var(--f-display); letter-spacing: -0.015em; }
 .h-caso-texto .h-caso-mini { width: min(62%, 280px); height: auto; border-radius: var(--r-lg); aspect-ratio: 1159 / 1400; object-fit: cover; }
 
+.h-mais { margin-top: clamp(72px, 10vw, 140px); }
+.h-mais-topo { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 18px; }
+.h-mais-titulo { font: 500 13px var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--destaque-noite); }
+.h-mais-conta { font: 500 13px var(--f-mono); color: var(--sobre-noite-2); }
+.h-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--noite-linha); }
+.h-proj { border-bottom: 1px solid var(--noite-linha); }
+.h-proj-linha {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-columns: 56px minmax(0, 1.5fr) minmax(0, 1fr) 120px 40px;
+    align-items: center; gap: clamp(16px, 2.5vw, 40px);
+    padding: clamp(22px, 3vw, 40px) clamp(4px, 1.5vw, 24px);
+    color: var(--sobre-noite); text-decoration: none;
+}
+.h-proj-linha::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; background: var(--laranja);
+    transform: scaleY(0); transform-origin: bottom; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.h-proj-num, .h-proj-tipo { font: 500 13px var(--f-mono); color: var(--sobre-noite-2); transition: color 0.3s; }
+.h-proj-nome {
+    font: 800 clamp(36px, 6vw, 92px)/0.9 var(--f-display); font-stretch: 75%; letter-spacing: -0.04em;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.h-proj-desc { color: var(--sobre-noite-2); font-size: 16px; line-height: 1.45; margin: 0; transition: color 0.3s; }
+.h-proj-tipo { justify-self: end; }
+.h-proj-seta { justify-self: end; font: 400 28px/1 var(--f-display); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+a.h-proj-linha:hover::before, a.h-proj-linha:focus-visible::before { transform: scaleY(1); }
+a.h-proj-linha:hover, a.h-proj-linha:focus-visible { color: var(--noite); }
+a.h-proj-linha:hover :is(.h-proj-num, .h-proj-tipo, .h-proj-desc), a.h-proj-linha:focus-visible :is(.h-proj-num, .h-proj-tipo, .h-proj-desc) { color: var(--noite); }
+a.h-proj-linha:hover .h-proj-nome, a.h-proj-linha:focus-visible .h-proj-nome { transform: translateX(14px); }
+a.h-proj-linha:hover .h-proj-seta, a.h-proj-linha:focus-visible .h-proj-seta { transform: translate(4px, -4px); }
+a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+    .h-proj-linha::before, .h-proj-nome, .h-proj-seta { transition: none; }
+}
+
 /* ---------- Duvidas ---------- */
 .h-duvidas { background: var(--papel); color: var(--tinta); padding: var(--secao) 0; }
 .h-duvidas .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
@@ -343,6 +379,12 @@ html.anima .h-escala-progresso {
     .h-hero-base .wrap { flex-direction: column; align-items: center; text-align: center; gap: 18px; }
     .h-hero-base p { max-width: 320px; }
     .h-rolar { display: none; }
+    .h-proj-linha { grid-template-columns: minmax(0, 1fr) auto; row-gap: 10px; column-gap: 16px; }
+    .h-proj-num { grid-column: 1; grid-row: 1; }
+    .h-proj-tipo { grid-column: 2; grid-row: 1; }
+    .h-proj-nome { grid-column: 1 / -1; grid-row: 2; }
+    .h-proj-desc { grid-column: 1; grid-row: 3; font-size: 15px; }
+    .h-proj-seta { grid-column: 2; grid-row: 3; align-self: end; }
     .h-escala-palco { grid-template-columns: 1fr; }
     html.anima .h-cap-linha { right: 18px; bottom: 16vh; }
     html.anima .h-cap-link { left: clamp(18px, 5vw, 72px); right: auto; bottom: 9vh; }
