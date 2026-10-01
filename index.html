@@ -19,24 +19,28 @@
             }
         } catch (e) {}
     </script>
-    <title>MovCode | Tecnologia do tamanho do seu negócio</title>
-    <meta name="description" content="Do mercadinho à indústria: a MovCode cria sites, sistemas de gestão e automações sob medida. Comece com um diagnóstico gratuito de 30 minutos.">
+    <title>Sites, sistemas e automações em Ribeirão Preto | MovCode</title>
+    <meta name="description" content="Sites, sistemas de gestão e automações sob medida em Ribeirão Preto e todo o Brasil. Do mercadinho à indústria. Diagnóstico gratuito de 30 minutos.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#111214">
     <link rel="canonical" href="https://movcode.com.br/">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="MovCode">
-    <meta property="og:title" content="MovCode | Tecnologia do tamanho do seu negócio">
-    <meta property="og:description" content="Do mercadinho à indústria: a MovCode cria sites, sistemas de gestão e automações sob medida. Comece com um diagnóstico gratuito de 30 minutos.">
+    <meta property="og:title" content="Sites, sistemas e automações em Ribeirão Preto | MovCode">
+    <meta property="og:description" content="Sites, sistemas de gestão e automações sob medida em Ribeirão Preto e todo o Brasil. Do mercadinho à indústria. Diagnóstico gratuito de 30 minutos.">
     <meta property="og:url" content="https://movcode.com.br/">
     <meta property="og:image" content="https://movcode.com.br/assets/images/og/movcode-og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MovCode: tecnologia do tamanho do seu negócio">
     <meta property="og:locale" content="pt_BR">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/icons/favicon-48.png" type="image/png" sizes="48x48">
+    <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -57,17 +61,124 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "MovCode",
-        "slogan": "Tecnologia do tamanho do seu negócio.",
-        "url": "https://movcode.com.br/",
-        "logo": "https://movcode.com.br/assets/images/logos/movcode-simbolo.svg",
-        "image": "https://movcode.com.br/assets/images/og/movcode-og.png",
-        "description": "Sites, landing pages, sistemas de gestão, automações e sistemas sob medida para empresas de todos os portes.",
-        "email": "contato@movcode.com.br",
-        "address": { "@type": "PostalAddress", "addressLocality": "Ribeirão Preto", "addressRegion": "SP", "addressCountry": "BR" },
-        "areaServed": "BR",
-        "sameAs": ["https://www.instagram.com/mov.code/", "https://github.com/movcodebr"]
+        "@graph": [
+            {
+                "@type": "ProfessionalService",
+                "@id": "https://movcode.com.br/#empresa",
+                "name": "MovCode",
+                "slogan": "Tecnologia do tamanho do seu negócio.",
+                "url": "https://movcode.com.br/",
+                "logo": "https://movcode.com.br/assets/images/icons/icon-512.png",
+                "image": "https://movcode.com.br/assets/images/og/movcode-og.png",
+                "description": "Sites, lojas virtuais, sistemas de gestão, automações e sistemas sob medida para empresas de todos os portes, do mercadinho à indústria.",
+                "telephone": "+55 16 98215-7266",
+                "email": "contato@movcode.com.br",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Ribeirão Preto",
+                    "addressRegion": "SP",
+                    "addressCountry": "BR"
+                },
+                "areaServed": [
+                    {
+                        "@type": "City",
+                        "name": "Ribeirão Preto"
+                    },
+                    {
+                        "@type": "State",
+                        "name": "São Paulo"
+                    },
+                    {
+                        "@type": "Country",
+                        "name": "Brasil"
+                    }
+                ],
+                "knowsLanguage": "pt-BR",
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "sales",
+                    "telephone": "+55 16 98215-7266",
+                    "email": "contato@movcode.com.br",
+                    "availableLanguage": "pt-BR"
+                },
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Serviços",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Sites e landing pages",
+                                "description": "Sites rápidos, bonitos no celular e feitos para gerar contato."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Lojas virtuais",
+                                "description": "Lojas prontas para vender, com pagamento online e entrega automática."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Sistemas de gestão",
+                                "description": "Estoque, caixa, pedidos e fiado num lugar só."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Automações",
+                                "description": "O trabalho repetitivo rodando sozinho."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Integrações",
+                                "description": "ERP, CRM, planilhas e APIs conversando."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Painéis",
+                                "description": "Os números do negócio sempre atualizados."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Consultoria",
+                                "description": "O gargalo mapeado antes de qualquer código."
+                            }
+                        }
+                    ]
+                },
+                "sameAs": [
+                    "https://www.instagram.com/mov.code/",
+                    "https://github.com/movcodebr"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://movcode.com.br/#site",
+                "url": "https://movcode.com.br/",
+                "name": "MovCode",
+                "inLanguage": "pt-BR",
+                "publisher": {
+                    "@id": "https://movcode.com.br/#empresa"
+                }
+            }
+        ]
     }
     </script>
     <script type="application/ld+json">
