@@ -5,8 +5,23 @@
 ------------------------------------------------------------------------- */
 window.MOVCODE_CONFIG = Object.freeze({
     whatsappNumber: '5516982157266',
-    whatsappMensagem: 'Olá! Vim pelo site da MovCode e gostaria de conversar sobre um projeto.'
+    whatsappMensagem: 'Olá! Vim pelo site da MovCode e gostaria de conversar sobre um projeto.',
+    // ID do Meta Pixel (Gerenciador de Eventos da Meta). Vazio = pixel desligado.
+    metaPixelId: ''
 });
+
+// Meta Pixel: so carrega quando ha um ID configurado acima
+if (window.MOVCODE_CONFIG.metaPixelId) {
+    /* eslint-disable */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+    window.fbq('init', window.MOVCODE_CONFIG.metaPixelId);
+    window.fbq('track', 'PageView');
+}
 
 // Origem da visita (utm_* / gclid / fbclid), guardada na sessao para o lead
 // chegar no WhatsApp dizendo de qual anuncio veio.
@@ -32,9 +47,15 @@ window.MOVCODE_ORIGEM = (() => {
     }
 })();
 
+// Eventos do GA4 que viram eventos padrao do Meta Pixel (para anuncios)
+const EVENTOS_META = { whatsapp_click: 'Contact', generate_lead: 'Lead' };
+
 function rastrear(evento, dados = {}) {
     if (typeof window.gtag === 'function') {
         window.gtag('event', evento, { ...window.MOVCODE_ORIGEM, ...dados });
+    }
+    if (typeof window.fbq === 'function' && EVENTOS_META[evento]) {
+        window.fbq('track', EVENTOS_META[evento], { content_name: dados.servico || dados.local || dados.cta || '' });
     }
 }
 

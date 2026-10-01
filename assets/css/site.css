@@ -469,6 +469,34 @@ html.chegando body::before {
 .lp-sinais h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
 .lp-sinais p { font-size: 16px; color: var(--tinta-2); }
 
+/* Pagina 404: "404" crescendo como o "tamanho" da home */
+.erro { padding: clamp(40px, 8vw, 96px) 0 var(--secao); text-align: center; }
+.erro .wrap { display: grid; justify-items: center; gap: 22px; }
+.erro-numero { margin: 0; font: 800 clamp(120px, 28vw, 300px)/0.8 var(--f-display); font-stretch: 75%; letter-spacing: 0.02em; color: var(--laranja); }
+.erro-numero span { display: inline-block; font-size: calc(var(--s) * 1em); }
+.erro h1 { font-size: clamp(34px, 5vw, 60px); font-weight: 800; letter-spacing: -0.02em; }
+.erro-texto { max-width: 460px; color: var(--tinta-2); font-size: 18px; }
+.erro-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.erro-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 12px; font-size: 15px; }
+.erro-links a { color: var(--tinta-2); }
+.erro-links a:hover { color: var(--tinta); }
+
+/* Paginas de nicho: projetos no ar */
+.provas { padding: 0 0 var(--secao); }
+.prova-foto { margin: 0 0 20px; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--linha); background: #F8FAFC; }
+.prova-foto img { display: block; width: 100%; height: auto; }
+.provas-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.prova { display: grid; gap: 10px; align-content: start; padding: 28px; background: var(--noite); color: var(--sobre-noite); border-radius: var(--r-lg); text-decoration: none; transition: transform .3s ease, background-color .3s ease; }
+.prova-tipo { font: 500 13px var(--f-mono); color: var(--destaque-noite); }
+.prova strong { font: 800 clamp(34px, 4vw, 52px)/0.95 var(--f-display); font-stretch: 75%; letter-spacing: -0.03em; }
+.prova p { color: var(--sobre-noite-2); font-size: 16px; }
+.prova-link { font-weight: 600; font-size: 15px; color: var(--destaque-noite); }
+@media (hover: hover) and (pointer: fine) {
+    .prova:hover { background: var(--laranja); transform: translateY(-4px); }
+    .prova:hover :is(.prova-tipo, p, .prova-link) { color: var(--noite); }
+    .prova:hover strong { color: var(--noite); }
+}
+
 /* ---------- Movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
