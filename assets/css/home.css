@@ -93,6 +93,9 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
 .h-titulo .tamanho { color: var(--laranja); }
 /* cada letra de "tamanho" e maior que a anterior */
 .h-titulo .tamanho .l { font-size: calc(var(--s) * 1em); }
+/* "oooo" que crescem e saem pela borda: largura zero, nao empurram o titulo */
+.h-titulo .tamanho { position: relative; }
+.h-titulo .alem { display: inline-block; width: 0; margin-top: -2em; white-space: nowrap; line-height: 0; text-align: left; }
 .h-hero-base { position: absolute; left: 0; right: 0; bottom: clamp(20px, 4vh, 40px); }
 .h-hero-base .wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; max-width: none; padding-inline: clamp(18px, 4vw, 48px); }
 .h-hero-base p { max-width: 320px; color: var(--sobre-noite-2); font-size: 16px; line-height: 1.5; }
@@ -272,10 +275,13 @@ html.anima .h-escala-progresso {
     fill: #2C2F35;
     transition: fill .35s ease;
 }
-.h-card:hover .h-card-curva text { fill: var(--noite); }
-.h-card:hover { background: var(--laranja); color: var(--noite); }
-.h-card:hover p, .h-card:hover .h-card-num { color: var(--noite); }
-.h-card:hover .h-card-icone { transform: rotate(-12deg) scale(1.08); }
+/* So com mouse: no toque o hover "gruda" e o card ficava laranja */
+@media (hover: hover) and (pointer: fine) {
+    .h-card:hover .h-card-curva text { fill: var(--noite); }
+    .h-card:hover { background: var(--laranja); color: var(--noite); }
+    .h-card:hover p, .h-card:hover .h-card-num { color: var(--noite); }
+    .h-card:hover .h-card-icone { transform: rotate(-12deg) scale(1.08); }
+}
 @media (min-width: 821px) {
     html.anima .h-servicos { padding: 0; }
     html.anima .h-servicos-pin { height: 100svh; display: flex; align-items: center; overflow: hidden; }
@@ -338,11 +344,13 @@ html.anima .h-escala-progresso {
 .h-proj-desc { color: var(--sobre-noite-2); font-size: 16px; line-height: 1.45; margin: 0; transition: color 0.3s; }
 .h-proj-tipo { justify-self: end; }
 .h-proj-seta { justify-self: end; font: 400 28px/1 var(--f-display); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-a.h-proj-linha:hover::before, a.h-proj-linha:focus-visible::before { transform: scaleY(1); }
-a.h-proj-linha:hover, a.h-proj-linha:focus-visible { color: var(--noite); }
-a.h-proj-linha:hover :is(.h-proj-num, .h-proj-tipo, .h-proj-desc), a.h-proj-linha:focus-visible :is(.h-proj-num, .h-proj-tipo, .h-proj-desc) { color: var(--noite); }
-a.h-proj-linha:hover .h-proj-nome, a.h-proj-linha:focus-visible .h-proj-nome { transform: translateX(14px); }
-a.h-proj-linha:hover .h-proj-seta, a.h-proj-linha:focus-visible .h-proj-seta { transform: translate(4px, -4px); }
+@media (hover: hover) and (pointer: fine) {
+    a.h-proj-linha:hover::before, a.h-proj-linha:focus-visible::before { transform: scaleY(1); }
+    a.h-proj-linha:hover, a.h-proj-linha:focus-visible { color: var(--noite); }
+    a.h-proj-linha:hover :is(.h-proj-num, .h-proj-tipo, .h-proj-desc), a.h-proj-linha:focus-visible :is(.h-proj-num, .h-proj-tipo, .h-proj-desc) { color: var(--noite); }
+    a.h-proj-linha:hover .h-proj-nome, a.h-proj-linha:focus-visible .h-proj-nome { transform: translateX(14px); }
+    a.h-proj-linha:hover .h-proj-seta, a.h-proj-linha:focus-visible .h-proj-seta { transform: translate(4px, -4px); }
+}
 a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
     .h-proj-linha::before, .h-proj-nome, .h-proj-seta { transition: none; }
