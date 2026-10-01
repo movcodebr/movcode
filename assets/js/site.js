@@ -189,8 +189,9 @@ document.querySelectorAll('[data-ano]').forEach((el) => {
 });
 
 const MOVCODE_MOVIMENTO_REDUZIDO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// "/" e "/index.html" sao a mesma pagina
-const mesmaPagina = (caminho) => caminho.replace(/index\.html$/, '') === window.location.pathname.replace(/index\.html$/, '');
+// "/" e "/index.html" sao a mesma pagina, assim como "/termo" e "/termo.html"
+const normalizarCaminho = (caminho) => caminho.replace(/index\.html$/, '').replace(/\.html$/, '');
+const mesmaPagina = (caminho) => normalizarCaminho(caminho) === normalizarCaminho(window.location.pathname);
 
 // ---------- Navegacao sem "#" na URL ----------
 // Links para secoes da propria pagina rolam ate a secao sem mudar o endereco.
