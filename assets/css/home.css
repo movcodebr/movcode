@@ -302,12 +302,16 @@ html.anima .h-escala-progresso {
 .h-caso { background: var(--noite); padding: var(--secao) 0; overflow: hidden; }
 .h-caso-rotulo { display: flex; justify-content: center; margin-bottom: 20px; }
 .h-caso-titulo { font-size: clamp(64px, 17.5vw, 290px); font-stretch: 75%; line-height: 0.8; letter-spacing: -0.05em; text-align: center; margin-bottom: clamp(32px, 5vw, 64px); }
-.h-caso-grade { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 64px); align-items: end; }
-.h-caso-foto { border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 4 / 3.3; }
-.h-caso-foto img { width: 100%; height: 118%; object-fit: cover; object-position: center 30%; }
-.h-caso-texto { display: grid; gap: 22px; }
+.h-caso-grade { display: grid; gap: clamp(32px, 5vw, 64px); }
+.h-caso-foto { border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 1600 / 931; background: #F8FAFC; }
+.h-caso-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transform-origin: center top; }
+.h-caso-texto { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.h-caso-info { display: grid; gap: 22px; justify-items: start; }
 .h-caso-texto p { font: 700 clamp(22px, 2vw, 30px)/1.25 var(--f-display); letter-spacing: -0.015em; }
-.h-caso-texto .h-caso-mini { width: min(62%, 280px); height: auto; border-radius: var(--r-lg); aspect-ratio: 1159 / 1400; object-fit: cover; }
+.h-caso-texto .h-caso-mini { width: 100%; height: auto; border-radius: var(--r-lg); aspect-ratio: 1200 / 357; object-fit: cover; }
+.h-caso-link { display: inline-flex; align-items: center; gap: 8px; font: 600 16px var(--f-texto); color: var(--destaque-noite); text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 4px; }
+.h-caso-link span { transition: transform 0.3s ease; }
+.h-caso-link:hover span { transform: translate(3px, -3px); }
 
 .h-mais { margin-top: clamp(72px, 10vw, 140px); }
 .h-mais-topo { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 18px; }
@@ -366,7 +370,7 @@ a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 1080px) {
-    .h-conversa .wrap, .h-caso-grade, .h-duvidas .wrap, .h-contato .wrap { grid-template-columns: 1fr; }
+    .h-conversa .wrap, .h-caso-texto, .h-duvidas .wrap, .h-contato .wrap { grid-template-columns: 1fr; }
     .chat { justify-self: start; }
     .h-duvidas .h-grande { position: static; }
     .h-passos { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 72px; }

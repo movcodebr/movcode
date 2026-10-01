@@ -336,12 +336,12 @@
             ease: 'none',
             scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
         });
-        gsap.fromTo('.h-caso-foto img', { yPercent: -12 }, {
-            yPercent: 0,
+        gsap.fromTo('.h-caso-foto img', { scale: 1.08 }, {
+            scale: 1,
             ease: 'none',
-            scrollTrigger: { trigger: '.h-caso-foto', start: 'top bottom', end: 'bottom top', scrub: true }
+            scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
         });
-        gsap.from('.h-caso-texto > *', {
+        gsap.from('.h-caso-mini, .h-caso-info > *', {
             y: 40,
             autoAlpha: 0,
             duration: 0.9,
