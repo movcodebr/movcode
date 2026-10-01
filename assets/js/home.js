@@ -118,8 +118,9 @@
 
     const tamanho = document.querySelector('.h-titulo .tamanho');
     tamanho?.addEventListener('pointerenter', () => {
-        gsap.fromTo(letrasTamanho, { yPercent: 0 }, {
-            yPercent: -14,
+        // pulo pelo tamanho da fonte: os "oooo" extras tem altura zero, yPercent nao os moveria
+        gsap.fromTo(letrasTamanho, { y: 0 }, {
+            y: (i, letra) => -0.12 * parseFloat(getComputedStyle(letra).fontSize),
             duration: 0.22,
             ease: 'power2.out',
             stagger: 0.04,
