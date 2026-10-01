@@ -95,7 +95,7 @@ html.anima-pre .h-titulo .p { opacity: 0; animation: titulo-aparece 0s 3s forwar
 .h-titulo .tamanho .l { font-size: calc(var(--s) * 1em); }
 /* "oooo" que crescem e saem pela borda: largura zero, nao empurram o titulo */
 .h-titulo .tamanho { position: relative; }
-.h-titulo .alem { display: inline-block; width: 0; margin-top: -2em; white-space: nowrap; line-height: 0; text-align: left; }
+.h-titulo .alem { display: inline-block; width: 0; margin-block: -2em; white-space: nowrap; text-align: left; }
 .h-hero-base { position: absolute; left: 0; right: 0; bottom: clamp(20px, 4vh, 40px); }
 .h-hero-base .wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; max-width: none; padding-inline: clamp(18px, 4vw, 48px); }
 .h-hero-base p { max-width: 320px; color: var(--sobre-noite-2); font-size: 16px; line-height: 1.5; }
