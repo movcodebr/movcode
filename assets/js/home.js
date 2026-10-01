@@ -336,12 +336,12 @@
             ease: 'none',
             scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
         });
-        gsap.fromTo('.h-caso-foto img', { yPercent: -12 }, {
-            yPercent: 0,
+        gsap.fromTo('.h-caso-foto img', { scale: 1.08 }, {
+            scale: 1,
             ease: 'none',
-            scrollTrigger: { trigger: '.h-caso-foto', start: 'top bottom', end: 'bottom top', scrub: true }
+            scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
         });
-        gsap.from('.h-caso-texto > *', {
+        gsap.from('.h-caso-mini, .h-caso-info > *', {
             y: 40,
             autoAlpha: 0,
             duration: 0.9,
@@ -350,6 +350,16 @@
             scrollTrigger: { trigger: '.h-caso-texto', start: 'top 85%' }
         });
     }
+
+    // ---------- Mais projetos ----------
+    gsap.utils.toArray('.h-proj').forEach((proj) => {
+        const tl = gsap.timeline({ scrollTrigger: { trigger: proj, start: 'top 88%' } });
+        tl.from(proj.querySelector('.h-proj-nome'), {
+            yPercent: 40, autoAlpha: 0, filter: 'blur(12px)', duration: 1, ease: 'power3.out', clearProps: 'filter,transform'
+        }).from(proj.querySelectorAll('.h-proj-num, .h-proj-desc, .h-proj-tipo, .h-proj-seta'), {
+            y: 16, autoAlpha: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06, clearProps: 'transform'
+        }, 0.15);
+    });
 
     // ---------- Contato e rodape ----------
     const tituloContato = document.querySelector('.h-contato-titulo');
@@ -408,6 +418,7 @@
                 const sobreCampo = event.target.closest('input, textarea');
                 anel.classList.toggle('ativo', Boolean(alvo) && !sobreCampo);
                 rotulo.textContent = alvo?.dataset.cursor || '';
+                anel.classList.toggle('sobre-laranja', Boolean(alvo?.closest('.h-proj-linha')));
                 gsap.to(ponto, { opacity: sobreCampo ? 0 : 1, duration: 0.2 });
             });
             document.documentElement.addEventListener('pointerleave', () => gsap.to([ponto, anel], { opacity: 0, duration: 0.2 }));
