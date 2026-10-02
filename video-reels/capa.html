@@ -51,7 +51,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:var(--noite)}
   </div>
 </div>
 <script>
-// mesmo mascote da cena final do video (scene.html, makeDuo)
+// logo da MovCode, igual a da cena final do video (sempre sem olhos)
 function makeDuo(w, cor) {
   const d = document.createElement('div');
   const gap = w * .03, col = (w - gap) / 2;
@@ -60,12 +60,7 @@ function makeDuo(w, cor) {
     const f = document.createElement('div');
     f.style.cssText = `display:grid;align-content:start;gap:${gap}px`;
     const h = document.createElement('b');
-    h.style.cssText = `display:block;width:${col}px;height:${col}px;border-radius:50%;background:${cor};position:relative`;
-    for (const side of ['left', 'right']) {
-      const e = document.createElement('i');
-      e.style.cssText = `position:absolute;top:38%;${side}:26%;width:15%;height:19%;border-radius:50%;background:#111214`;
-      h.appendChild(e);
-    }
+    h.style.cssText = `display:block;width:${col}px;height:${col}px;border-radius:50%;background:${cor}`;
     const b = document.createElement('b');
     b.style.cssText = `display:block;width:${col}px;height:${col * 1.55}px;border-radius:999px;background:${cor}`;
     f.append(h, b);

@@ -338,7 +338,8 @@ function typeText(el, text, t0, cps) {
   P((t) => { el.textContent = text.slice(0, clamp(Math.floor((t - t0) * cps), 0, text.length)); });
 }
 
-function makeDuo(w, cor = '#FF5A1F', eyes = false) {
+// logo da MovCode: dois bonecos (cabeca + corpo), sempre sem olhos
+function makeDuo(w, cor = '#FF5A1F') {
   const d = document.createElement('div');
   const gap = w * .03, col = (w - gap) / 2;
   d.style.cssText = `display:grid;grid-template-columns:${col}px ${col}px;gap:${gap}px;width:${w}px`;
@@ -348,15 +349,7 @@ function makeDuo(w, cor = '#FF5A1F', eyes = false) {
     f.style.cssText = `display:grid;align-content:start;gap:${gap}px`;
     const h = document.createElement('b');
     h.className = 'head';
-    h.style.cssText = `display:block;width:${col}px;height:${col}px;border-radius:50%;background:${cor};position:relative`;
-    if (eyes) {
-      for (const side of ['left', 'right']) {
-        const e = document.createElement('i');
-        e.className = 'eye';
-        e.style.cssText = `position:absolute;top:38%;${side}:26%;width:15%;height:19%;border-radius:50%;background:#111214`;
-        h.appendChild(e);
-      }
-    }
+    h.style.cssText = `display:block;width:${col}px;height:${col}px;border-radius:50%;background:${cor}`;
     const b = document.createElement('b');
     b.className = 'body';
     b.style.cssText = `display:block;width:${col}px;height:${col * 1.55}px;border-radius:999px;background:${cor}`;
@@ -601,7 +594,7 @@ function build() {
   // ======================= marca + CTA (31.2 – 36.0) =======================
   vis('#br', 31.2);
   fx(31.2, '#oflash', { opacity: 1 }, { opacity: 0, duration: .5, ease: 'power2.out' });
-  const logo = makeDuo(300, '#FF5A1F', true);
+  const logo = makeDuo(300, '#FF5A1F');
   $('#logo').appendChild(logo);
   const heads = $$('#logo .head'), bodies = $$('#logo .body');
   ft(31.25, bodies, { scaleY: 0 }, { scaleY: 1, duration: .45, ease: 'back.out(2.4)', stagger: .07 });
@@ -614,9 +607,7 @@ function build() {
   ft(33.3, '#coment', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .45, ease: 'power3.out' });
   ft(34.5, '#handles', { opacity: 0, scale: .8 }, { opacity: 1, scale: 1, duration: .4, ease: 'back.out(2)' });
   P((t) => {
-    // piscada do mascote e seta pulando
-    const blink = (t > 33.9 && t < 34.02) || (t > 35.1 && t < 35.2);
-    $$('#logo .eye').forEach((e) => { e.style.transform = blink ? 'scaleY(.12)' : ''; });
+    // seta pulando e brilho do CTA
     $('#arrow').style.transform = `translateY(${8 * Math.abs(Math.sin((t - 33.3) * 4))}px)`;
     $('#cta').style.boxShadow = t > 32.3 ? `0 0 ${70 + 30 * Math.sin((t - 32.3) * 4)}px rgba(255,90,31,.4)` : '';
   });

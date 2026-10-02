@@ -52,6 +52,9 @@ audio/vozes/gemini-Sulafat-bruto.wav` (com `--pasta sinais` para o segundo).
 
 ## Novo Reels
 
+A logo da MovCode (os dois bonecos laranja) aparece sempre **sem olhos**, em
+qualquer vídeo ou capa.
+
 Crie uma pasta ao lado de `sinais/` com `roteiro.json` (falas e direção da voz),
 `cues.json` (tempo de cada fala), `scene.html` (com `window.__ready` e
 `window.__seek(t)`), `ca.cmd`, `capa.html` e `audio/synth.py` (importa
