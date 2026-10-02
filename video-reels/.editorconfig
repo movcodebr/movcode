@@ -1,0 +1,3 @@
+# Scripts desta pasta rodam no Linux: quebra de linha LF
+[*]
+end_of_line = lf

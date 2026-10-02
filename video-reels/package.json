@@ -1,0 +1,11 @@
+{
+  "name": "movcode-reels",
+  "private": true,
+  "description": "Reels de apresentação da MovCode: animação em HTML/GSAP renderizada quadro a quadro.",
+  "scripts": {
+    "frames": "node render.js frames 60 0 37.2 4"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
