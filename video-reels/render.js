@@ -1,9 +1,13 @@
 // uso: node render.js <outDir> <fps> <from> <to> <workers>   |   node render.js --stills <outDir> t1,t2,...
+// outro video: acrescente --cena <pasta>/scene.html (padrao: scene.html desta pasta)
 const { chromium } = require('playwright-core');
 const fs = require('fs');
 const path = require('path');
 const EXE = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
-const URL = 'file://' + path.resolve(__dirname, 'scene.html');
+const argv = process.argv.slice(2);
+const ic = argv.indexOf('--cena');
+const CENA = ic >= 0 ? path.resolve(argv.splice(ic, 2)[1]) : path.resolve(__dirname, 'scene.html');
+const URL = 'file://' + CENA;
 
 async function openPage(browser) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
@@ -19,7 +23,7 @@ async function shot(page, t, file) {
 }
 
 (async () => {
-  const args = process.argv.slice(2);
+  const args = argv;
   const browser = await chromium.launch({ executablePath: EXE, args: ['--font-render-hinting=none', '--force-color-profile=srgb', '--disable-lcd-text'] });
   if (args[0] === '--stills') {
     const out = args[1]; fs.mkdirSync(out, { recursive: true });

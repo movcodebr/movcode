@@ -1,12 +1,14 @@
-"""Narracao do Reels com o Gemini TTS (Google).
+"""Narracao dos Reels com o Gemini TTS (Google).
 
 Precisa da variavel de ambiente GEMINI_API_KEY (chave gratuita em
-https://aistudio.google.com/apikey). Gera audio/L*.wav e audio/vo.json no
-lugar da voz atual; a voz anterior vai para audio/vozes/anterior/.
+https://aistudio.google.com/apikey). Le o roteiro (falas e direcao de voz) de
+<pasta>/roteiro.json e os tempos de <pasta>/cues.json; gera <pasta>/audio/L*.wav
+e <pasta>/audio/vo.json no lugar da voz atual (a anterior vai para
+<pasta>/audio/vozes/anterior/). A pasta padrao e a do primeiro Reels (video-reels/).
 
 uso:
-    python3 audio/gemini_vo.py [VOZ]               # roteiro inteiro (padrao: Sulafat)
-    python3 audio/gemini_vo.py --amostras V1,V2    # amostra curta de cada voz em audio/amostras/
+    python3 audio/gemini_vo.py [VOZ] [--pasta DIR]            # roteiro inteiro (padrao: Sulafat)
+    python3 audio/gemini_vo.py --amostras V1,V2 [--pasta DIR] # amostra curta de cada voz em audio/amostras/
     python3 audio/gemini_vo.py VOZ --bruto audio/vozes/gemini-VOZ-bruto.wav
                                                    # corta de novo um audio ja gerado, sem chamar a API
 
@@ -27,41 +29,14 @@ import urllib.request
 import numpy as np
 import soundfile as sf
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 API = 'https://generativelanguage.googleapis.com/v1beta'
 KEY = os.environ.get('GEMINI_API_KEY', '').strip()
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-LINES = [
-    ('L01', 'Todo negócio começa pequeno.'),
-    ('L02a', 'O fiado no caderno.'),
-    ('L02b', 'A planilha com três versões.'),
-    ('L02c', 'O estoque que nunca bate.'),
-    ('L03', 'Sua empresa já te avisa.'),
-    ('L04', 'Bora resolver isso de vez?'),
-    ('L05', 'Sites que colocam você no mapa.'),
-    ('L06', 'Lojas que vendem até de madrugada.'),
-    ('L07', 'Sistemas que arrumam a casa.'),
-    ('L08', 'Automações que trabalham sozinhas.'),
-    ('L09a', 'Do mercadinho...'),
-    ('L09b', 'à indústria.'),
-    ('L10', 'Tecnologia do tamanho do seu negócio.'),
-    ('L11', 'MovCode.'),
-    ('L12a', 'Agende seu diagnóstico grátis.'),
-    ('L12b', 'Link na bio.'),
-]
 
-DIRECAO = """# Perfil de áudio
-Locutora de comercial brasileira, gravando um anúncio de Reels para a MovCode, empresa de tecnologia de Ribeirão Preto.
-
-### Notas de direção
-Estilo: natural e humana, calorosa e confiante, como quem conversa com o dono de um pequeno negócio. Nada de voz robótica ou de leitura.
-Sotaque: português do Brasil, neutro.
-Ritmo: ágil mas claro, com uma pausa de meio segundo entre cada linha.
-Emoção: nas cinco primeiras linhas, tom contido e levemente tenso; a partir de "Bora resolver isso de vez?", animada, sorridente e cheia de energia.
-Pronúncia: diga "MovCode" como "Móv Côud".
-
-#### Roteiro
-"""
+def roteiro(pasta):
+    r = json.load(open(os.path.join(pasta, 'roteiro.json')))
+    return list(r['falas'].items()), '\n'.join(r['direcao']) + '\n', r
 
 
 def need_key():
@@ -139,9 +114,9 @@ def strip_junk(x, sr):
     """Tira das pontas cliques e rajadas de ruido isoladas por silencio.
 
     O Gemini as vezes devolve um clique no inicio e um chiado em volume maximo
-    no fim do audio. Sao 'ilhas' de som curtas (<= 150 ms), separadas da fala
-    por mais de 100 ms e com espectro de ruido (planicidade > 0,7; nas
-    consoantes da fala fica abaixo de 0,65)."""
+    no fim do audio. Sao 'ilhas' de som separadas da fala por mais de 100 ms:
+    o clique dura ate 30 ms; o chiado, ate 150 ms, com espectro de ruido
+    (planicidade > 0,7; nas consoantes da fala fica abaixo de 0,65)."""
     env = envelope(x, sr)
     if not len(env):
         return x
@@ -156,7 +131,8 @@ def strip_junk(x, sr):
     h = int(sr * 0.01)
 
     def junk(r, gap):
-        return gap >= 10 and r[1] - r[0] <= 15 and flatness(x[r[0] * h:r[1] * h]) > 0.7
+        d = r[1] - r[0]
+        return gap >= 10 and (d <= 3 or (d <= 15 and flatness(x[r[0] * h:r[1] * h]) > 0.7))
     a, b = 0, len(runs)
     while b - a > 1 and junk(runs[a], runs[a + 1][0] - runs[a][1]):
         a += 1
@@ -217,44 +193,50 @@ def fit(seg, sr, maxdur):
 
 def main():
     args = sys.argv[1:]
-    bruto = None
-    if '--bruto' in args:
-        i = args.index('--bruto')
-        bruto = args[i + 1]
-        del args[i:i + 2]
+    opt = {}
+    for k in ('--bruto', '--pasta'):
+        if k in args:
+            i = args.index(k)
+            opt[k] = args[i + 1]
+            del args[i:i + 2]
+    bruto = opt.get('--bruto')
+    pasta = os.path.abspath(opt.get('--pasta', RAIZ))
+    out = os.path.join(pasta, 'audio')
+    LINES, DIRECAO, rot = roteiro(pasta)
     if args and args[0] == '--amostras':
         need_key()
         model = pick_model()
         voices = args[1].split(',')
-        os.makedirs(os.path.join(HERE, 'amostras'), exist_ok=True)
+        os.makedirs(os.path.join(out, 'amostras'), exist_ok=True)
         texto = DIRECAO + '\n'.join(t for _, t in LINES[:6])
         for v in voices:
             x, sr = tts(model, texto, v)
-            sf.write(os.path.join(HERE, 'amostras', f'{v}.wav'), x, sr)
+            sf.write(os.path.join(out, 'amostras', f'{v}.wav'), x, sr)
             print('amostra', v, round(len(x) / sr, 1), 's')
             time.sleep(8)
         return
 
     voice = args[0] if args else 'Sulafat'
-    cues = json.load(open(os.path.join(HERE, '..', 'cues.json')))['vo']
+    cues = json.load(open(os.path.join(pasta, 'cues.json')))['vo']
     order = sorted(cues, key=cues.get)
     slot = {}
     for i, k in enumerate(order):
-        nxt = cues[order[i + 1]] if i + 1 < len(order) else 36.5
+        nxt = cues[order[i + 1]] if i + 1 < len(order) else rot['fim_da_voz']
         slot[k] = nxt - cues[k] - 0.05
-    slot['L10'] = 3.2  # o "tamanhoooo" segura a tela ate 29.9
+    slot.update(rot.get('maximo', {}))
 
+    os.makedirs(os.path.join(out, 'vozes'), exist_ok=True)
     if bruto:
         # reaproveita um audio ja gerado (sem chamar a API)
         x, sr = sf.read(bruto)
-        old = json.load(open(os.path.join(HERE, 'vo.json')))
+        old = json.load(open(os.path.join(out, 'vo.json')))
         model = next((m['model'] for m in old.values() if m.get('model')), '?')
     else:
         need_key()
         model = pick_model()
         print(f'gerando o roteiro inteiro com {voice}...')
         x, sr = tts(model, DIRECAO + '\n'.join(t for _, t in LINES), voice)
-        sf.write(os.path.join(HERE, 'vozes', f'gemini-{voice}-bruto.wav'), x, sr)
+        sf.write(os.path.join(out, 'vozes', f'gemini-{voice}-bruto.wav'), x, sr)
     segs = split_lines(x, sr, len(LINES))
     if segs is None and bruto:
         sys.exit('não deu para separar as falas desse áudio pelo silêncio.')
@@ -266,20 +248,20 @@ def main():
             segs.append(trim(y, sr))
             time.sleep(8)
 
-    prev = os.path.join(HERE, 'vozes', 'anterior')
+    prev = os.path.join(out, 'vozes', 'anterior')
     os.makedirs(prev, exist_ok=True)
     for key, _ in LINES:
-        f = os.path.join(HERE, f'{key}.wav')
+        f = os.path.join(out, f'{key}.wav')
         if os.path.exists(f):
             shutil.copy(f, prev)
     meta = {}
     for (key, text), seg in zip(LINES, segs):
         seg = fit(seg, sr, slot[key])
-        sf.write(os.path.join(HERE, f'{key}.wav'), seg, sr)
+        sf.write(os.path.join(out, f'{key}.wav'), seg, sr)
         meta[key] = {'text': text, 'voice': voice, 'model': model, 'dur': round(len(seg) / sr, 3)}
         print(f'  {key:5s} {meta[key]["dur"]:5.2f}s (cabe {slot[key]:.2f}s)  {text}')
-    json.dump(meta, open(os.path.join(HERE, 'vo.json'), 'w'), ensure_ascii=False, indent=1)
-    print('pronto. Agora: python3 audio/synth.py && ./encode_web.sh frames entrega/movcode-reels.mp4')
+    json.dump(meta, open(os.path.join(out, 'vo.json'), 'w'), ensure_ascii=False, indent=1)
+    print('pronto. Agora: python3 audio/synth.py e ../encode_web.sh (veja o README)')
 
 
 if __name__ == '__main__':

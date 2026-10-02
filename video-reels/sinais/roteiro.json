@@ -1,0 +1,27 @@
+{
+ "direcao": [
+  "# Perfil de áudio",
+  "Criadora de conteúdo brasileira gravando um Reels para a MovCode, empresa de tecnologia de Ribeirão Preto, falando direto com donos de pequenos negócios.",
+  "",
+  "### Notas de direção",
+  "Estilo: natural, próxima e bem-humorada, como quem dá uma dica valiosa para um amigo. Nada de voz robótica ou de leitura.",
+  "Sotaque: português do Brasil, neutro.",
+  "Ritmo: ágil e claro. Depois de cada número (\"Um:\", \"Dois:\"...), uma pausa bem curta. Entre uma linha e outra, uma pausa de um segundo.",
+  "Emoção: curiosa e intrigante na primeira linha; nos sinais, cúmplice, como quem diz \"eu sei que isso acontece aí\"; em \"Marcou dois ou mais?\", provocadora; no final, animada e sorridente.",
+  "Pronúncia: diga \"MovCode\" como \"Móv Côud\".",
+  "",
+  "#### Roteiro"
+ ],
+ "falas": {
+  "L01": "Cinco sinais de que a sua empresa já passou da planilha.",
+  "L02": "Um: tudo vive numa planilha que só uma pessoa entende.",
+  "L03": "Dois: você digita a mesma informação duas vezes.",
+  "L04": "Três: pra saber como foi o mês, alguém precisa parar tudo.",
+  "L05": "Quatro: cada cliente novo vira mais trabalho manual.",
+  "L06": "Cinco: o site existe, mas não traz cliente.",
+  "L07": "Marcou dois ou mais?",
+  "L08": "Bora resolver isso de vez?",
+  "L09": "Agende seu diagnóstico grátis na MovCode. Link na bio."
+ },
+ "fim_da_voz": 35.6
+}

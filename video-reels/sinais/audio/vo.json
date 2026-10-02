@@ -1,0 +1,56 @@
+{
+ "L01": {
+  "text": "Cinco sinais de que a sua empresa já passou da planilha.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.573
+ },
+ "L02": {
+  "text": "Um: tudo vive numa planilha que só uma pessoa entende.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.351
+ },
+ "L03": {
+  "text": "Dois: você digita a mesma informação duas vezes.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.515
+ },
+ "L04": {
+  "text": "Três: pra saber como foi o mês, alguém precisa parar tudo.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.695
+ },
+ "L05": {
+  "text": "Quatro: cada cliente novo vira mais trabalho manual.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.417
+ },
+ "L06": {
+  "text": "Cinco: o site existe, mas não traz cliente.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.184
+ },
+ "L07": {
+  "text": "Marcou dois ou mais?",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 1.15
+ },
+ "L08": {
+  "text": "Bora resolver isso de vez?",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 1.335
+ },
+ "L09": {
+  "text": "Agende seu diagnóstico grátis na MovCode. Link na bio.",
+  "voice": "Sulafat",
+  "model": "gemini-3.8-flash-tts",
+  "dur": 3.553
+ }
+}

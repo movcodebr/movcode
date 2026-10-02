@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>MovCode — capa do Reels: 5 sinais</title>
+<link rel="stylesheet" href="../fonts.css">
+<style>
+/* Capa do Reels (1080x1920). Tudo fica centralizado e dentro do recorte 3:4
+   do meio (y 240-1680), que e o que a grade do perfil mostra. */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--noite:#111214;--laranja:#FF5A1F;--pessego:#FFB08A;--cinza:#B7BAC2;--verde:#1FAF54;--tintatxt:#1A0800}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--noite)}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;font-family:'Figtree',sans-serif;-webkit-font-smoothing:antialiased}
+#bg{position:absolute;inset:0;background:radial-gradient(1300px 1100px at 50% 46%,#1b1d22 0%,#121316 55%,#0a0b0d 100%)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.04) 2px,transparent 2px);background-size:90px 90px;background-position:-45px -15px;
+  -webkit-mask-image:radial-gradient(900px 900px at 50% 50%,#000 0%,transparent 75%)}
+#glow{position:absolute;width:1500px;height:1500px;left:-210px;top:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,31,.24) 0%,rgba(255,90,31,.08) 34%,rgba(255,90,31,0) 68%)}
+.disp{font-family:'Bricolage Grotesque';font-weight:800;font-stretch:75%;letter-spacing:-.035em;line-height:.9}
+.mono{font-family:'JetBrains Mono';font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+
+#col{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#boxes{display:flex;gap:22px;margin-bottom:30px}
+.box{position:relative;width:76px;height:76px;border-radius:20px;border:4px solid rgba(255,255,255,.28);background:rgba(255,255,255,.04)}
+.box.on{border-color:transparent;background:var(--laranja);box-shadow:0 0 36px rgba(255,90,31,.55)}
+.box svg{position:absolute;left:10px;top:10px;width:48px;height:48px}
+#kicker{font-size:28px;color:var(--pessego);margin-bottom:40px}
+#t1{display:flex;align-items:baseline;gap:26px;white-space:nowrap}
+#t1 .n{font-size:440px;color:var(--laranja);text-shadow:0 0 90px rgba(255,90,31,.45)}
+#t1 .s{font-size:200px}
+.t2{font-size:112px;margin-top:20px;white-space:nowrap}
+#cell{position:relative;display:inline-block;font-size:168px;padding:6px 34px 18px;margin-top:84px;margin-bottom:110px}
+#cell .bx{position:absolute;inset:0;border:7px solid var(--verde);border-radius:6px;box-shadow:0 0 40px rgba(31,175,84,.35)}
+#cell .hd{position:absolute;right:-14px;bottom:-14px;width:28px;height:28px;background:var(--verde);border:5px solid var(--noite)}
+#cell .ref{position:absolute;left:-4px;top:-50px;font:600 28px 'JetBrains Mono';color:var(--verde);letter-spacing:.04em}
+#marca{display:flex;justify-content:center;align-items:baseline;gap:26px}
+#marca .wm{font:700 64px/1 'Bricolage Grotesque';letter-spacing:-.03em}
+#marca .wm b{color:var(--laranja);font-weight:700}
+#marca .at{font:600 32px 'JetBrains Mono';color:var(--cinza)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+  <div class="grid"></div>
+  <div id="glow"></div>
+  <div id="col">
+    <div id="boxes"></div>
+    <div id="kicker" class="mono">Conte quantos você tem</div>
+    <div id="t1" class="disp"><span class="n">5</span><span class="s">sinais</span></div>
+    <div class="t2 disp">de que sua empresa</div>
+    <div class="t2 disp">já passou da</div>
+    <div id="cell" class="disp"><span class="ref">C7</span><span class="bx"></span><span class="hd"></span>planilha.</div>
+    <div id="marca"><span class="wm">Mov<b>Code.</b></span><span class="at">@mov.code</span></div>
+  </div>
+</div>
+<script>
+// duas caixinhas marcadas: "marcou 2 ou mais?"
+const check = '<svg viewBox="0 0 48 48"><path d="M9 25 L20 35 L40 13" fill="none" stroke="#1A0800" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+document.getElementById('boxes').innerHTML = [1, 1, 0, 0, 0].map((on) => `<div class="box${on ? ' on' : ''}">${on ? check : ''}</div>`).join('');
+window.__ready = document.fonts.ready;
+</script>
+</body>
+</html>

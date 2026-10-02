@@ -1,0 +1,37 @@
+{
+ "direcao": [
+  "# Perfil de áudio",
+  "Locutora de comercial brasileira, gravando um anúncio de Reels para a MovCode, empresa de tecnologia de Ribeirão Preto.",
+  "",
+  "### Notas de direção",
+  "Estilo: natural e humana, calorosa e confiante, como quem conversa com o dono de um pequeno negócio. Nada de voz robótica ou de leitura.",
+  "Sotaque: português do Brasil, neutro.",
+  "Ritmo: ágil mas claro, com uma pausa de meio segundo entre cada linha.",
+  "Emoção: nas cinco primeiras linhas, tom contido e levemente tenso; a partir de \"Bora resolver isso de vez?\", animada, sorridente e cheia de energia.",
+  "Pronúncia: diga \"MovCode\" como \"Móv Côud\".",
+  "",
+  "#### Roteiro"
+ ],
+ "falas": {
+  "L01": "Todo negócio começa pequeno.",
+  "L02a": "O fiado no caderno.",
+  "L02b": "A planilha com três versões.",
+  "L02c": "O estoque que nunca bate.",
+  "L03": "Sua empresa já te avisa.",
+  "L04": "Bora resolver isso de vez?",
+  "L05": "Sites que colocam você no mapa.",
+  "L06": "Lojas que vendem até de madrugada.",
+  "L07": "Sistemas que arrumam a casa.",
+  "L08": "Automações que trabalham sozinhas.",
+  "L09a": "Do mercadinho...",
+  "L09b": "à indústria.",
+  "L10": "Tecnologia do tamanho do seu negócio.",
+  "L11": "MovCode.",
+  "L12a": "Agende seu diagnóstico grátis.",
+  "L12b": "Link na bio."
+ },
+ "fim_da_voz": 36.5,
+ "maximo": {
+  "L10": 3.2
+ }
+}
