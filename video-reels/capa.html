@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>MovCode — capa do Reels</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* Capa do Reels (1080x1920). O que importa fica entre y=300 e y=1620:
+   a grade do perfil mostra so o recorte 3:4 do meio (y 240-1680). */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--noite:#111214;--laranja:#FF5A1F;--pessego:#FFB08A;--cinza:#B7BAC2}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--noite)}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;font-family:'Figtree',sans-serif;-webkit-font-smoothing:antialiased}
+#bg{position:absolute;inset:0;background:radial-gradient(1300px 1100px at 50% 46%,#1b1d22 0%,#121316 55%,#0a0b0d 100%)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.04) 2px,transparent 2px);background-size:90px 90px;background-position:-45px -15px;
+  -webkit-mask-image:radial-gradient(900px 900px at 50% 50%,#000 0%,transparent 75%)}
+#glow{position:absolute;width:1500px;height:1500px;left:-210px;top:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,31,.24) 0%,rgba(255,90,31,.08) 34%,rgba(255,90,31,0) 68%)}
+.disp{font-family:'Bricolage Grotesque';font-weight:800;font-stretch:75%;letter-spacing:-.035em;line-height:.9}
+.mono{font-family:'JetBrains Mono';font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+
+#logo{position:absolute;left:0;right:0;top:330px;display:flex;justify-content:center;filter:drop-shadow(0 0 40px rgba(255,90,31,.45))}
+#kicker{position:absolute;left:0;right:0;top:612px;text-align:center;font-size:30px;color:var(--pessego)}
+#title{position:absolute;left:0;right:0;top:700px;text-align:center;font-size:150px}
+#title .ln{display:block;white-space:nowrap}
+#tam{color:var(--laranja);text-shadow:0 0 70px rgba(255,90,31,.35)}
+#tam span{display:inline-block}
+#sub{position:absolute;left:0;right:0;top:1290px;text-align:center;font:600 44px 'Figtree';color:var(--cinza)}
+#marca{position:absolute;left:0;right:0;top:1500px;display:flex;justify-content:center;align-items:baseline;gap:26px}
+#marca .wm{font:700 64px/1 'Bricolage Grotesque';letter-spacing:-.03em}
+#marca .wm b{color:var(--laranja);font-weight:700}
+#marca .at{font:600 32px 'JetBrains Mono';color:var(--cinza)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+  <div class="grid"></div>
+  <div id="glow"></div>
+  <div id="logo"></div>
+  <div id="kicker" class="mono">Sites · Lojas · Sistemas · Automações</div>
+  <div id="title" class="disp">
+    <span class="ln">Tecnologia do</span>
+    <span class="ln" id="tam">tamanhoooo</span>
+    <span class="ln">do seu negócio.</span>
+  </div>
+  <div id="sub">Do mercadinho à indústria.</div>
+  <div id="marca"><span class="wm">Mov<b>Code.</b></span><span class="at">@mov.code</span></div>
+</div>
+<script>
+// mesmo mascote da cena final do video (scene.html, makeDuo)
+function makeDuo(w, cor) {
+  const d = document.createElement('div');
+  const gap = w * .03, col = (w - gap) / 2;
+  d.style.cssText = `display:grid;grid-template-columns:${col}px ${col}px;gap:${gap}px;width:${w}px`;
+  for (let i = 0; i < 2; i++) {
+    const f = document.createElement('div');
+    f.style.cssText = `display:grid;align-content:start;gap:${gap}px`;
+    const h = document.createElement('b');
+    h.style.cssText = `display:block;width:${col}px;height:${col}px;border-radius:50%;background:${cor};position:relative`;
+    for (const side of ['left', 'right']) {
+      const e = document.createElement('i');
+      e.style.cssText = `position:absolute;top:38%;${side}:26%;width:15%;height:19%;border-radius:50%;background:#111214`;
+      h.appendChild(e);
+    }
+    const b = document.createElement('b');
+    b.style.cssText = `display:block;width:${col}px;height:${col * 1.55}px;border-radius:999px;background:${cor}`;
+    f.append(h, b);
+    d.appendChild(f);
+  }
+  return d;
+}
+
+window.__ready = document.fonts.ready.then(() => {
+  document.getElementById('logo').appendChild(makeDuo(150, '#FF5A1F'));
+  // "tamanhoooo": cada letra maior que a anterior, como no video
+  const tam = document.getElementById('tam');
+  tam.innerHTML = [...tam.textContent].map((c, i) => `<span style="font-size:${(1 + i * .085 + Math.max(0, i - 6) ** 2 * .03).toFixed(3)}em">${c}</span>`).join('');
+  // o titulo inteiro cabe na largura com 70px de margem
+  const title = document.getElementById('title');
+  const maxW = 1080 - 140;
+  const widest = Math.max(...[...title.querySelectorAll('.ln')].map((l) => {
+    l.style.display = 'inline-block';
+    const w = l.getBoundingClientRect().width;
+    l.style.display = '';
+    return w;
+  }));
+  if (widest > maxW) title.style.fontSize = (150 * maxW / widest).toFixed(1) + 'px';
+});
+</script>
+</body>
+</html>

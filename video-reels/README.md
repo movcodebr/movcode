@@ -26,6 +26,7 @@ python3 audio/gemini_vo.py Sulafat      # gera as 16 falas, corta e encaixa nos 
 python3 audio/synth.py                  # trilha + efeitos + voz -> audio/out/mix.wav
 node render.js frames 60 0 37.2 4       # ~10 min, 2.232 quadros (só na primeira vez)
 ./encode_web.sh frames entrega/movcode-reels.mp4
+node capa.js                            # capa -> entrega/movcode-reels-capa.jpg
 ```
 
 O Gemini às vezes devolve um clique no começo e um chiado em volume máximo no
@@ -60,6 +61,8 @@ Os tempos das falas ficam em `cues.json` e são a referência comum da animaçã
 video-reels/
 ├── scene.html        animação inteira (GSAP); window.__seek(t) desenha o instante t
 ├── render.js         captura os quadros com Playwright (vários processos em paralelo)
+├── capa.html         capa do Reels (o essencial fica no recorte 3:4 da grade do perfil)
+├── capa.js           renderiza a capa em JPG
 ├── encode.sh         pós-produção + H.264 (motion blur, bloom, vinheta, grão, aberração)
 ├── encode_web.sh     igual, limitado a ~6 Mbps (arquivo < 30 MB)
 ├── ca.cmd            pulsos de aberração cromática nos impactos (sendcmd do ffmpeg)
@@ -71,7 +74,7 @@ video-reels/
 │   ├── kokoro_vo.py  narração offline com Kokoro (rascunho)
 │   ├── L*.wav        falas em uso (hoje: Gemini, voz Sulafat)
 │   └── vozes/        versões de voz guardadas
-└── entrega/          capa do Reels; os .mp4 gerados ficam aqui (fora do git)
+└── entrega/          capa e legenda do Reels; os .mp4 gerados ficam aqui (fora do git)
 ```
 
 O GSAP vem do próprio site (`../assets/js/vendor/gsap.min.js`).
