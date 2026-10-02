@@ -328,29 +328,25 @@
         });
     }
 
-    // ---------- Caso ----------
+    // ---------- Produtos ----------
     const tituloCaso = document.querySelector('.h-caso-titulo');
     if (tituloCaso) {
         revelar(tituloCaso, 'letras', { duration: 1.2 });
-        gsap.fromTo('.h-caso-foto', { clipPath: 'inset(16% 14% 16% 14% round 32px)' }, {
-            clipPath: 'inset(0% 0% 0% 0% round 32px)',
-            ease: 'none',
-            scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
-        });
-        gsap.fromTo('.h-caso-foto img', { scale: 1.08 }, {
-            scale: 1,
-            ease: 'none',
-            scrollTrigger: { trigger: '.h-caso-foto', start: 'top 90%', end: 'top 30%', scrub: true }
-        });
-        gsap.from('.h-caso-mini, .h-caso-info > *', {
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.9,
-            ease: 'power3.out',
-            stagger: 0.1,
-            scrollTrigger: { trigger: '.h-caso-texto', start: 'top 85%' }
-        });
+        revelar(document.querySelector('.h-produtos-sub'), 'palavras');
     }
+    gsap.utils.toArray('.h-produto').forEach((produto, i) => {
+        const tl = gsap.timeline({ scrollTrigger: { trigger: produto, start: 'top 85%' } });
+        tl.from(produto, { y: 60, autoAlpha: 0, duration: 1, ease: 'power3.out', delay: i * 0.12, clearProps: 'transform' });
+        const foto = produto.querySelector('.h-produto-visual img');
+        if (foto) {
+            tl.from(foto, { scale: 1.12, duration: 1.4, ease: 'power3.out', clearProps: 'transform' }, '<');
+        }
+        // Lojinha: as notificacoes chegam uma por uma, como numa venda de verdade
+        const avisos = produto.querySelectorAll('.h-produto-fluxo span');
+        if (avisos.length) {
+            tl.from(avisos, { x: -24, autoAlpha: 0, duration: 0.6, ease: 'back.out(1.6)', stagger: 0.35, clearProps: 'transform' }, '<0.35');
+        }
+    });
 
     // ---------- Mais projetos ----------
     gsap.utils.toArray('.h-proj').forEach((proj) => {
