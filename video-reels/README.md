@@ -8,16 +8,16 @@ final é feita no ffmpeg.
 Esta pasta não faz parte do site: fica só neste branch (`claude/reels-movcode`)
 e o GitHub Pages continua publicando a partir do `main`.
 
-## Estado atual e próximo passo
+## Estado atual
 
-A animação, a trilha e a mixagem estão prontas. Falta trocar a narração: as
-vozes offline (Kokoro, em `audio/vozes/`) soam robóticas. O próximo passo é a
-voz do **Gemini TTS**:
+Animação, trilha, mixagem e narração prontas. A narração é do **Gemini TTS**
+(voz feminina Sulafat, modelo `gemini-3.8-flash-tts`), gerada de uma vez só a
+partir do roteiro e cortada nos silêncios em 16 falas. As vozes offline
+(Kokoro) ficam guardadas em `audio/vozes/`.
 
-1. Criar uma chave gratuita em https://aistudio.google.com/apikey.
-2. Salvar a chave como variável de ambiente `GEMINI_API_KEY` nas configurações
-   do ambiente (nunca no código nem no chat).
-3. Numa sessão nova, rodar:
+Para gerar o vídeo do zero (precisa da variável de ambiente `GEMINI_API_KEY`
+só para refazer a voz; a chave é gratuita em https://aistudio.google.com/apikey
+e fica nas configurações do ambiente, nunca no código nem no chat):
 
 ```bash
 cd video-reels
@@ -27,6 +27,12 @@ python3 audio/synth.py                  # trilha + efeitos + voz -> audio/out/mi
 node render.js frames 60 0 37.2 4       # ~10 min, 2.232 quadros (só na primeira vez)
 ./encode_web.sh frames entrega/movcode-reels.mp4
 ```
+
+O Gemini às vezes devolve um clique no começo e um chiado em volume máximo no
+fim do áudio; o `gemini_vo.py` remove essas sobras sozinho. O áudio bruto fica
+em `audio/vozes/gemini-<voz>-bruto.wav` (fora do git) e pode ser cortado de
+novo sem chamar a API: `python3 audio/gemini_vo.py Sulafat --bruto
+audio/vozes/gemini-Sulafat-bruto.wav`.
 
 ## Roteiro (4 atos, 100 BPM)
 
@@ -63,7 +69,7 @@ video-reels/
 │   ├── synth.py      trilha, efeitos, tratamento da voz, mixagem e master (−14 LUFS)
 │   ├── gemini_vo.py  narração com Gemini TTS
 │   ├── kokoro_vo.py  narração offline com Kokoro (rascunho)
-│   ├── L*.wav        falas em uso (hoje: Kokoro feminina)
+│   ├── L*.wav        falas em uso (hoje: Gemini, voz Sulafat)
 │   └── vozes/        versões de voz guardadas
 └── entrega/          capa do Reels; os .mp4 gerados ficam aqui (fora do git)
 ```

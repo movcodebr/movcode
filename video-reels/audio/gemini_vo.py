@@ -7,6 +7,8 @@ lugar da voz atual; a voz anterior vai para audio/vozes/anterior/.
 uso:
     python3 audio/gemini_vo.py [VOZ]               # roteiro inteiro (padrao: Sulafat)
     python3 audio/gemini_vo.py --amostras V1,V2    # amostra curta de cada voz em audio/amostras/
+    python3 audio/gemini_vo.py VOZ --bruto audio/vozes/gemini-VOZ-bruto.wav
+                                                   # corta de novo um audio ja gerado, sem chamar a API
 
 Vozes femininas boas para locucao: Sulafat (calorosa), Kore (firme), Laomedeia (animada),
 Aoede (leve). Masculinas: Puck (animado), Achird (amigavel), Charon (informativo), Orus (firme).
@@ -128,12 +130,54 @@ def envelope(x, sr, hop=0.01):
     return np.sqrt(np.mean(x[:n * h].reshape(n, h) ** 2, axis=1))
 
 
+def flatness(x):
+    s = np.abs(np.fft.rfft(x * np.hanning(len(x)))) + 1e-9
+    return np.exp(np.mean(np.log(s))) / np.mean(s)
+
+
+def strip_junk(x, sr):
+    """Tira das pontas cliques e rajadas de ruido isoladas por silencio.
+
+    O Gemini as vezes devolve um clique no inicio e um chiado em volume maximo
+    no fim do audio. Sao 'ilhas' de som curtas (<= 150 ms), separadas da fala
+    por mais de 100 ms e com espectro de ruido (planicidade > 0,7; nas
+    consoantes da fala fica abaixo de 0,65)."""
+    env = envelope(x, sr)
+    if not len(env):
+        return x
+    on = np.append(env >= 0.03 * env.max(), False)
+    runs, start = [], None
+    for i, v in enumerate(on):
+        if v and start is None:
+            start = i
+        if not v and start is not None:
+            runs.append((start, i))
+            start = None
+    h = int(sr * 0.01)
+
+    def junk(r, gap):
+        return gap >= 10 and r[1] - r[0] <= 15 and flatness(x[r[0] * h:r[1] * h]) > 0.7
+    a, b = 0, len(runs)
+    while b - a > 1 and junk(runs[a], runs[a + 1][0] - runs[a][1]):
+        a += 1
+    while b - a > 1 and junk(runs[b - 1], runs[b - 1][0] - runs[b - 2][1]):
+        b -= 1
+    i0 = (runs[a - 1][1] + 1) * h if a else 0
+    i1 = (runs[b][0] - 1) * h if b < len(runs) else len(x)
+    return x[i0:i1]
+
+
 def trim(x, sr):
+    x = strip_junk(x, sr)
     thr = 0.02 * np.max(np.abs(x))
     idx = np.where(np.abs(x) > thr)[0]
     if not len(idx):
         return x
-    return x[max(0, idx[0] - int(.005 * sr)): idx[-1] + int(.1 * sr)]
+    x = x[max(0, idx[0] - int(.005 * sr)): idx[-1] + int(.1 * sr)].copy()
+    f = int(.004 * sr)  # rampas curtas para o corte nao estalar
+    x[:f] *= np.linspace(0, 1, f)
+    x[-f:] *= np.linspace(1, 0, f)
+    return x
 
 
 def split_lines(x, sr, n):
@@ -172,10 +216,15 @@ def fit(seg, sr, maxdur):
 
 
 def main():
-    need_key()
     args = sys.argv[1:]
-    model = pick_model()
+    bruto = None
+    if '--bruto' in args:
+        i = args.index('--bruto')
+        bruto = args[i + 1]
+        del args[i:i + 2]
     if args and args[0] == '--amostras':
+        need_key()
+        model = pick_model()
         voices = args[1].split(',')
         os.makedirs(os.path.join(HERE, 'amostras'), exist_ok=True)
         texto = DIRECAO + '\n'.join(t for _, t in LINES[:6])
@@ -195,9 +244,20 @@ def main():
         slot[k] = nxt - cues[k] - 0.05
     slot['L10'] = 3.2  # o "tamanhoooo" segura a tela ate 29.9
 
-    print(f'gerando o roteiro inteiro com {voice}...')
-    x, sr = tts(model, DIRECAO + '\n'.join(t for _, t in LINES), voice)
+    if bruto:
+        # reaproveita um audio ja gerado (sem chamar a API)
+        x, sr = sf.read(bruto)
+        old = json.load(open(os.path.join(HERE, 'vo.json')))
+        model = next((m['model'] for m in old.values() if m.get('model')), '?')
+    else:
+        need_key()
+        model = pick_model()
+        print(f'gerando o roteiro inteiro com {voice}...')
+        x, sr = tts(model, DIRECAO + '\n'.join(t for _, t in LINES), voice)
+        sf.write(os.path.join(HERE, 'vozes', f'gemini-{voice}-bruto.wav'), x, sr)
     segs = split_lines(x, sr, len(LINES))
+    if segs is None and bruto:
+        sys.exit('não deu para separar as falas desse áudio pelo silêncio.')
     if segs is None:
         print('não deu para separar as falas pelo silêncio; gerando uma por uma...')
         segs = []
@@ -219,7 +279,6 @@ def main():
         meta[key] = {'text': text, 'voice': voice, 'model': model, 'dur': round(len(seg) / sr, 3)}
         print(f'  {key:5s} {meta[key]["dur"]:5.2f}s (cabe {slot[key]:.2f}s)  {text}')
     json.dump(meta, open(os.path.join(HERE, 'vo.json'), 'w'), ensure_ascii=False, indent=1)
-    sf.write(os.path.join(HERE, 'vozes', f'gemini-{voice}-bruto.wav'), x, sr)
     print('pronto. Agora: python3 audio/synth.py && ./encode_web.sh frames entrega/movcode-reels.mp4')
 
 
