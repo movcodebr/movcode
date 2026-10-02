@@ -16,6 +16,7 @@ Sites, lojas virtuais, sistemas de gestão e automações sob medida, do mercadi
 | `/loja-virtual` | `loja-virtual.html` | Lojas virtuais |
 | `/sistema-para-mercadinho` | `sistema-para-mercadinho.html` | Sistema de gestão para comércio |
 | `/sistema-para-laboratorio` | `sistema-para-laboratorio.html` | ForLabs, controle de qualidade para laboratórios |
+| `/sistema-para-barbearia` | `sistema-para-barbearia.html` | ForBarber, site e sistema para barbearias |
 | `/politica` | `politica.html` | Política de Privacidade |
 | `/termo` | `termo.html` | Termos de Uso |
 | — | `404.html` | Página de erro |
