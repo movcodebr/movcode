@@ -308,13 +308,23 @@ html.anima .h-escala-progresso {
 .h-caso { background: var(--noite); padding: var(--secao) 0; overflow: hidden; }
 .h-caso-rotulo { display: flex; justify-content: center; margin-bottom: 20px; }
 .h-caso-titulo { font-size: clamp(64px, 17.5vw, 290px); font-stretch: 75%; line-height: 0.8; letter-spacing: -0.05em; text-align: center; margin-bottom: clamp(32px, 5vw, 64px); }
-.h-caso-grade { display: grid; gap: clamp(32px, 5vw, 64px); }
-.h-caso-foto { border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 1600 / 931; background: #F8FAFC; }
-.h-caso-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transform-origin: center top; }
-.h-caso-texto { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-.h-caso-info { display: grid; gap: 22px; justify-items: start; }
-.h-caso-texto p { font: 700 clamp(22px, 2vw, 30px)/1.25 var(--f-display); letter-spacing: -0.015em; }
-.h-caso-texto .h-caso-mini { width: 100%; height: auto; border-radius: var(--r-lg); aspect-ratio: 1200 / 357; object-fit: cover; }
+.h-produtos-sub { max-width: 520px; margin: 0 auto clamp(40px, 6vw, 72px); text-align: center; color: var(--sobre-noite-2); font-size: clamp(17px, 1.5vw, 20px); text-wrap: balance; }
+.h-produtos-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 20px; }
+.h-produto { display: grid; grid-template-rows: auto 1fr; background: var(--noite-2); border: 1px solid var(--noite-linha); border-radius: var(--r-xl); overflow: hidden; }
+.h-produto-visual { aspect-ratio: 16 / 10; overflow: hidden; background: #F8FAFC; }
+.h-produto-visual img { width: 100%; height: 100%; object-fit: cover; object-position: left top; transform-origin: left top; }
+/* Lojinha: o fluxo da loja em notificacoes (sem print do produto por enquanto) */
+.h-produto-fluxo { display: grid; align-content: center; justify-items: start; gap: 12px; padding: clamp(20px, 4vw, 44px); background: var(--laranja); }
+.h-produto-fluxo span { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 18px; background: var(--noite); color: var(--sobre-noite); font: 600 clamp(14px, 1.4vw, 17px)/1.2 var(--f-texto); box-shadow: 0 18px 40px -20px rgba(0, 0, 0, .55); }
+.h-produto-fluxo span:nth-child(2) { margin-left: 8%; }
+.h-produto-fluxo span:nth-child(3) { margin-left: 16%; }
+.h-produto-fluxo b { width: 10px; height: 10px; border-radius: 50%; background: var(--laranja); flex: none; }
+.h-produto-fluxo small { font: 500 12px var(--f-mono); color: var(--sobre-noite-2); margin-left: 6px; }
+.h-produto-corpo { display: grid; gap: 16px; align-content: start; padding: clamp(24px, 3vw, 40px); }
+.h-produto-para { font: 500 13px var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--destaque-noite); }
+.h-produto-nome { font: 800 clamp(48px, 6vw, 88px)/0.85 var(--f-display); font-stretch: 75%; letter-spacing: -0.04em; }
+.h-produto p { color: var(--sobre-noite-2); font-size: 17px; line-height: 1.5; text-wrap: pretty; }
+.h-produto-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 8px; }
 .h-caso-link { display: inline-flex; align-items: center; gap: 8px; font: 600 16px var(--f-texto); color: var(--destaque-noite); text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 4px; }
 .h-caso-link span { transition: transform 0.3s ease; }
 .h-caso-link:hover span { transform: translate(3px, -3px); }
@@ -378,7 +388,7 @@ a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 1080px) {
-    .h-conversa .wrap, .h-caso-texto, .h-duvidas .wrap, .h-contato .wrap { grid-template-columns: 1fr; }
+    .h-conversa .wrap, .h-duvidas .wrap, .h-contato .wrap { grid-template-columns: 1fr; }
     .chat { justify-self: start; }
     .h-duvidas .h-grande { position: static; }
     .h-passos { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 72px; }
@@ -392,6 +402,11 @@ a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline
     .h-hero-base p { max-width: 320px; }
     .h-rolar { display: none; }
     .h-proj-linha { grid-template-columns: minmax(0, 1fr) auto; row-gap: 10px; column-gap: 16px; }
+    .h-produto-fluxo { gap: 10px; padding: 20px; }
+    .h-produto-fluxo span { padding: 12px 16px; font-size: 14px; white-space: nowrap; }
+    .h-produto-fluxo span:nth-child(2) { margin-left: 5%; }
+    .h-produto-fluxo span:nth-child(3) { margin-left: 10%; }
+    .h-produto-fluxo small { display: none; }
     .h-proj-num { grid-column: 1; grid-row: 1; }
     .h-proj-tipo { grid-column: 2; grid-row: 1; }
     .h-proj-nome { grid-column: 1 / -1; grid-row: 2; }
@@ -413,4 +428,4 @@ a.h-proj-linha:focus-visible { outline: 2px solid var(--destaque-noite); outline
 }
 
 /* Textos curtos com linhas equilibradas */
-.h-card p, .h-caso-texto p, .h-contato-texto > p, .h-servicos-intro p, .h-passo p, .bolha, .contato-lista li { text-wrap: balance; }
+.h-card p, .h-contato-texto > p, .h-servicos-intro p, .h-passo p, .bolha, .contato-lista li { text-wrap: balance; }
